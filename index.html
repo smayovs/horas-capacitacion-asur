@@ -3,8 +3,8 @@
 /* Lado aire: un campo azul marino profundo arriba (encabezado + cifra principal), la señalización de calles de rodaje
    (placas negras con cifras amarillas, línea central amarilla) como único motivo, y superficies claras para las gráficas. */
 :root{
-  --field:#021d3a;--field-2:#032a52;--field-ink:#ffffff;--field-soft:#b9cfe8;--field-line:#0d3a6a;
-  --sign:#0a0f16;--sign-ink:#ffc20e;--taxi:#ffc20e;
+  --field:#02458d;--field-2:#0a54a3;--field-deep:#02305e;--field-ink:#ffffff;--field-soft:#d2e2f4;--field-line:#2f74c0;
+  --acc:#5cc4cc;--taxi:#5cc4cc;--sign:#02305e;--sign-ink:#5cc4cc;
   --brand:#02458d;--brand-2:#02305e;--teal:#008c9a;
   --page:#eef2f6;--surface:#ffffff;--sunken:#e5ebf2;--hover:#f3f6f9;
   --ink:#0f1620;--ink-2:#3d4858;--muted:#5b6778;--grid:#dde4ec;--line:#dbe2ea;--strong:#9aa8b9;
@@ -17,7 +17,7 @@
   --gut:clamp(16px,2.4vw,32px);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --field:#020f1f;--field-2:#05203f;--field-line:#0c2f55;
+  --field:#02305e;--field-2:#02458d;--field-deep:#021f3d;--field-line:#1665b8;
   --page:#0b121b;--surface:#131d29;--sunken:#1b2735;--hover:#172230;
   --ink:#eaf0f7;--ink-2:#b3c0d0;--muted:#93a3b6;--grid:#223142;--line:#223142;--strong:#4a5d74;
   --link:#7db8f2;--teal-ink:#5cc4cc;
@@ -25,7 +25,7 @@
   --ok-fg:#5fd093;--ok-bg:#12301f;--warn-fg:#eaa845;--warn-bg:#36280f;--bad-fg:#f2867c;--bad-bg:#3a1a17;--info-bg:#152c47;
   --btn:#1d6fc9;--btn-hover:#165aa6;--danger-hover-bg:#4c2521;--danger-hover-fg:#f2867c;--float:0 18px 48px rgba(0,0,0,.6);color-scheme:dark}}
 :root[data-theme="dark"]{
-  --field:#020f1f;--field-2:#05203f;--field-line:#0c2f55;
+  --field:#02305e;--field-2:#02458d;--field-deep:#021f3d;--field-line:#1665b8;
   --page:#0b121b;--surface:#131d29;--sunken:#1b2735;--hover:#172230;
   --ink:#eaf0f7;--ink-2:#b3c0d0;--muted:#93a3b6;--grid:#223142;--line:#223142;--strong:#4a5d74;
   --link:#7db8f2;--teal-ink:#5cc4cc;
@@ -37,7 +37,7 @@
 html{scroll-padding-top:150px;scrollbar-color:var(--strong) var(--page);accent-color:var(--btn)}
 body{margin:0;overflow-x:clip;background:var(--page);color:var(--ink);font:400 1rem/1.55 var(--body);-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--field)}
-::selection{background:color-mix(in srgb,var(--taxi) 45%,transparent);color:inherit}
+::selection{background:color-mix(in srgb,var(--teal) 30%,transparent);color:inherit}
 h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance;font-weight:600}
 h2{font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.1}
 h3{font-size:1.125rem;line-height:1.25}
@@ -62,13 +62,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 /* pestañas como letreros de calle de rodaje: la activa es el letrero amarillo de dirección */
 .tabs a{display:inline-flex;align-items:center;padding:9px 14px;white-space:nowrap;text-decoration:none;font:600 .9375rem/1.2 var(--display);letter-spacing:.01em;color:var(--field-soft);border-radius:var(--r);transition:color .15s,background .15s}
 .tabs a:hover{color:#fff;background:var(--field-2)}
-.tabs a[aria-current="page"]{background:var(--taxi);color:var(--sign)}
+.tabs a[aria-current="page"]{background:#fff;color:var(--brand)}
 .top-actions{display:flex;align-items:center;gap:8px;flex:none}
 .top .btn.ghost{color:#fff}
 .top .btn.ghost:hover{background:var(--field-2)}
 .stamp{display:inline-flex;align-items:center;gap:8px;font:500 .875rem/1.2 var(--body);color:var(--field-soft);white-space:nowrap}
 .stamp::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
-.stamp.ok{color:#7fd9b0}.stamp.warn{color:var(--taxi)}.stamp.plain::before{display:none}
+.stamp.ok{color:#9be3c2}.stamp.warn{color:#ffd58a}.stamp.plain::before{display:none}
 .ctx{display:flex;align-items:center;gap:8px 20px;flex-wrap:wrap;padding:10px 0 12px}
 .ctx-sum{margin:0;display:flex;align-items:baseline;gap:12px;font-variant-numeric:tabular-nums}
 .ctx-sum b{font:600 1.25rem/1 var(--display);letter-spacing:-.02em;color:var(--taxi)}
@@ -80,7 +80,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .chip:focus-visible{outline:3px solid var(--taxi);outline-offset:2px}
 .chip svg{flex:none}
 .ctx .btn.ghost{color:var(--field-soft)}
-.skip{all:unset;position:absolute;left:16px;top:8px;z-index:70;background:var(--taxi);color:var(--sign);padding:10px 16px;font:600 .9375rem/1.2 var(--body);transform:translateY(-200%)}
+.skip{all:unset;position:absolute;left:16px;top:8px;z-index:70;background:#fff;color:var(--brand);padding:10px 16px;font:600 .9375rem/1.2 var(--body);transform:translateY(-200%)}
 .skip:focus-visible{transform:none;outline:3px solid #fff}
 
 /* ---------- controles ---------- */
@@ -92,8 +92,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,su
 .btn.secondary:hover{background:var(--info-bg)}
 .btn.ghost{background:transparent;color:var(--link)}
 .btn.ghost:hover{background:var(--sunken)}
-.btn.taxi{background:var(--taxi);color:var(--sign)}
-.btn.taxi:hover{background:#ffd34d}
+.btn.taxi{background:#fff;color:var(--brand)}
+.btn.taxi:hover{background:var(--field-soft)}
 .btn.danger{background:var(--bad-bg);color:var(--bad-fg)}
 .btn.danger:hover{background:var(--danger-hover-bg);color:var(--danger-hover-fg)}
 .btn.danger.armed{background:var(--bad-fg);color:#fff}
@@ -142,7 +142,7 @@ main{padding-block:0 96px}
 
 /* ---------- panorama: el campo azul continúa bajo el encabezado ---------- */
 .apron{background:var(--field);color:var(--field-ink);margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}
-.apron-in{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-block:clamp(28px,4vw,56px) 0;align-items:stretch}
+.apron-in{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:clamp(24px,4vw,64px);padding-block:clamp(24px,3.5vw,48px) 0;align-items:end}
 .big-k{font:500 1.0625rem/1.3 var(--body);color:var(--field-soft);margin:0}
 .big-v{all:unset;display:block;cursor:pointer;font:600 clamp(4.5rem,11vw,10rem)/.86 var(--display);letter-spacing:-.045em;font-variant-numeric:tabular-nums;margin:14px 0 0;color:#fff;transition:color .15s}
 .big-v:hover{color:var(--taxi)}
@@ -151,34 +151,33 @@ main{padding-block:0 96px}
 /* línea central de calle de rodaje: tramo continuo = logrado, tramo discontinuo = por lograr */
 .centerline{position:relative;height:12px;margin:28px 0 12px}
 .dashes{position:absolute;inset:0;display:flex;gap:18px;overflow:hidden}
-.dashes i{flex:none;width:26px;background:color-mix(in srgb,var(--taxi) 38%,transparent)}
+.dashes i{flex:none;width:26px;background:color-mix(in srgb,#fff 26%,transparent)}
 .centerline b{position:absolute;inset:0 auto 0 0;background:var(--taxi);transform-origin:left;animation:grow 1s cubic-bezier(.2,.7,.3,1) both}
 .big-u{margin:0;font-size:1rem;color:var(--field-soft);font-variant-numeric:tabular-nums}
 .big-u b{color:#fff;font-weight:600}
-.apron-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:32px}
-.astat{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;padding:16px 18px;background:var(--field-2);cursor:pointer;border-radius:var(--r);transition:background .15s}
+.apron-stats{display:grid;grid-template-columns:1fr;gap:6px}
+@media (max-width:980px){.apron-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.astat{display:flex;flex-direction:column;gap:4px}}
+@media (max-width:420px){.apron-stats{grid-template-columns:1fr}}
+.astat{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:2px 12px;padding:14px 18px;background:var(--field-2);cursor:pointer;border-radius:var(--r);transition:background .15s}
 .astat:hover{background:var(--field-line)}
 .astat:focus-visible{outline:3px solid var(--taxi);outline-offset:2px}
 .astat .k{font-size:.875rem;color:var(--field-soft)}
 .astat .v{font:600 clamp(1.75rem,2.6vw,2.375rem)/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.astat .u{font-size:.8125rem;color:var(--field-soft)}
-.photo{position:relative;margin:0;min-height:320px;overflow:hidden;background:var(--field-2)}
-.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 35%;animation:drift 24s ease-in-out infinite alternate}
-.photo figcaption{position:absolute;left:0;bottom:0;max-width:100%;padding:8px 12px;background:var(--field);color:var(--field-soft);font-size:.8125rem;line-height:1.4}
-.photo figcaption a{color:inherit}
-@keyframes drift{from{transform:scale(1.04)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.astat .u{font-size:.8125rem;color:var(--field-soft);grid-column:1/-1}
+.astat .v{grid-row:1/3;grid-column:2;align-self:center}
 .dur-warn{background:var(--warn-bg);color:var(--warn-fg);padding:14px 20px;font-weight:600;font-size:.9375rem;line-height:1.5;border-radius:var(--r)}
-/* indicadores como letreros de ubicación: placa negra, cifra amarilla */
-.signs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding-block:28px clamp(28px,4vw,48px)}
-.sign{all:unset;box-sizing:border-box;position:relative;display:flex;flex-direction:column;gap:8px;padding:18px 20px 20px;background:var(--sign);color:#fff;cursor:pointer;border-radius:var(--r);border:3px solid var(--sign-ink);transition:transform .15s cubic-bezier(.2,.7,.3,1),background .15s}
-.sign:hover{transform:translateY(-2px);background:#121a25}
+/* indicadores: fichas claras sobre el campo azul */
+.signs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding-block:28px clamp(28px,4vw,48px)}
+.sign{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:6px;padding:18px 20px;background:var(--surface);color:var(--ink);cursor:pointer;border-radius:var(--r);transition:transform .15s cubic-bezier(.2,.7,.3,1),background .15s}
+.sign:hover{transform:translateY(-2px);background:var(--hover)}
 .sign:active{transform:none}
 .sign:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.sign .v{font:600 clamp(2.25rem,3.6vw,3.25rem)/1 var(--display);letter-spacing:-.03em;color:var(--sign-ink);font-variant-numeric:tabular-nums}
+.sign .v{font:600 clamp(2rem,3.2vw,2.75rem)/1 var(--display);letter-spacing:-.03em;color:var(--brand);font-variant-numeric:tabular-nums}
 .sign .k{font:600 1rem/1.25 var(--display)}
-.sign small{font-size:.8125rem;line-height:1.45;color:#b9c4d2}
-.sign .go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:6px;font-size:.8125rem;font-weight:600;color:var(--sign-ink)}
-@media (max-width:980px){.apron-in{grid-template-columns:1fr}.photo{min-height:220px;order:-1}.signs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sign small{font-size:.8125rem;line-height:1.45;color:var(--muted)}
+.sign .go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding-top:6px;font-size:.8125rem;font-weight:600;color:var(--teal-ink)}
+@media (max-width:980px){.apron-in{grid-template-columns:minmax(0,1fr)}.signs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:380px){.signs{grid-template-columns:1fr}}
 
 /* ---------- gráficas ---------- */
 .chart{margin-top:20px;position:relative}
@@ -240,7 +239,7 @@ main{padding-block:0 96px}
 .sub-h{margin-top:28px}
 .tip{position:fixed;z-index:80;pointer-events:none;background:var(--sign);color:#fff;padding:8px 12px;border-radius:var(--r);font-size:.8125rem;line-height:1.45;max-width:280px;box-shadow:var(--float); /* taste-skill-ignore: tooltip flotante */opacity:0;transform:translateY(4px);transition:opacity .1s,transform .1s}
 .tip.on{opacity:1;transform:none}
-.tip b{color:var(--sign-ink);font-weight:600}
+.tip b{color:var(--acc);font-weight:600}
 @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes rise-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 
@@ -323,18 +322,16 @@ td input.dur-in{width:96px;text-align:right;padding:6px 8px;min-height:36px}
 .dr-body td.first{min-width:180px}
 
 /* ---------- acceso ---------- */
-.gate{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);min-height:calc(100vh - 64px);margin-inline:calc(50% - 50vw)}
-.gate-side{background:var(--field);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:48px clamp(24px,6vw,96px);gap:28px}
-.gate-side .logo{width:min(360px,80%);height:auto}
-.gate-side h1{font-size:clamp(2rem,3.6vw,3rem);line-height:1.05;letter-spacing:-.03em}
+.gate{display:flex;align-items:center;justify-content:center;min-height:100vh;margin-inline:calc(50% - 50vw);background:var(--field);padding:32px 20px}
+.gate-side{width:min(100%,480px);color:#fff;display:flex;flex-direction:column;gap:28px}
+.gate-side .logo{width:min(320px,82%);height:auto}
+.gate-side h1{font-size:clamp(2rem,4vw,2.75rem);line-height:1.05;letter-spacing:-.03em}
 .gate-side .lead{color:var(--field-soft)}
-.gate-form{display:flex;flex-direction:column;gap:18px;max-width:420px}
+.gate-form{display:flex;flex-direction:column;gap:18px}
 .gate-form .label,.gate-form .check{color:var(--field-soft)}
 .gate-form input[type=password]{background:#fff;color:#0f1620;border-color:transparent}
-.gate-err{margin:0;color:#ffb3ab;font-weight:600;font-size:.9375rem;line-height:1.5}
+.gate-err{margin:0;color:#ffd0ca;font-weight:600;font-size:.9375rem;line-height:1.5}
 .gate-err:empty{display:none}
-.gate .photo{min-height:100%}
-@media (max-width:860px){.gate{grid-template-columns:1fr}.gate .photo{min-height:30vh;order:-1}.gate-side{padding:32px 20px 48px}}
 
 /* ---------- actualizar ---------- */
 .drop{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:36px 32px;border-radius:var(--r);background:var(--sunken);cursor:pointer;margin-top:24px;transition:background .15s}
@@ -365,15 +362,12 @@ td input.dur-in{width:96px;text-align:right;padding:6px 8px;min-height:36px}
 .step-msg:empty{display:none}
 .step-msg.ok{color:var(--ok-fg)}.step-msg.warn{color:var(--warn-fg)}.step-msg.bad{color:var(--bad-fg)}
 
-/* ---------- cierre: la marca construida en grande ---------- */
-.foot{background:var(--field);color:var(--field-soft);margin-top:24px}
-.foot-in{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px 48px;padding-block:56px 40px;align-items:end}
-.foot .logo{width:100%;max-width:760px;height:auto;color:#fff}
-.foot-meta{font-size:.875rem;line-height:1.6;display:flex;flex-direction:column;gap:8px}
-.foot-meta a{color:#fff}
-.foot-line{position:relative;height:6px}
-.foot-line .dashes{gap:24px}.foot-line .dashes i{width:40px;background:var(--taxi)}
-@media (max-width:760px){.foot-in{grid-template-columns:1fr}}
+/* ---------- pie compacto ---------- */
+.foot{background:var(--field-deep);color:var(--field-soft);margin-top:48px}
+.foot-in{display:flex;align-items:center;gap:8px 24px;flex-wrap:wrap;padding-block:18px calc(18px + env(safe-area-inset-bottom,0px))}
+.foot .logo{height:22px;width:auto;color:#fff;flex:none}
+.foot-meta{font-size:.8125rem;line-height:1.5;color:var(--field-soft)}
+a.foot-meta{color:#fff;margin-left:auto}
 
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--sign);color:#fff;padding:14px 20px;border-radius:var(--r);box-shadow:var(--float); /* taste-skill-ignore: aviso flotante */font-size:.9375rem;max-width:min(92vw,560px);z-index:90;transition:opacity .2s,transform .2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -400,7 +394,6 @@ td input.dur-in{width:96px;text-align:right;padding:6px 8px;min-height:36px}
   .filters.open .f-adv{display:flex}
   .filters.open .f-curso,.filters.open .f-more{grid-column:1/-1}
   .filters.open .f-more{justify-self:start}
-  .apron-stats{grid-template-columns:1fr 1fr 1fr}
   .astat{padding:12px}
   .astat .u{display:none}
   .hrow{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}
@@ -442,6 +435,29 @@ td input.dur-in{width:96px;text-align:right;padding:6px 8px;min-height:36px}
 }
 
 
+/* tabletas y teléfonos: las tablas se vuelven tarjetas */
+@media (max-width:1100px){
+  .m-sort{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+  .m-sort select{flex:1}
+  .tw{max-height:none;overflow:visible}
+  .tw table,.tw tbody,.tw tfoot{display:block}
+  .tw thead{display:none}
+  .tw tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .tw td{display:flex;justify-content:space-between;gap:12px;padding:0;border:0;grid-column:1/-1;text-align:left;font-size:.9375rem;min-width:0;max-width:none}
+  .tw td::before{content:attr(data-l);color:var(--muted);font-size:.8125rem;flex:none}
+  .tw td.first,.tw td.big{position:static;box-shadow:none;background:none;grid-row:1;display:block}
+  .tw td.first{grid-column:1;min-width:0}
+  .tw td.big{grid-column:2;text-align:right}
+  .tw td.first::before,.tw td.big::before{display:none}
+  .tw td.big .hrs{font-size:1.375rem}
+  .tw td.big::after{content:"h";margin-left:3px;color:var(--muted);font-size:.875rem}
+  .tw td:empty{display:none}
+  .tw .pct{justify-content:flex-end}
+  .tw tfoot tr{border-bottom:0;background:var(--sunken);padding:14px 12px}
+  .tw tfoot td{position:static;background:none}
+  .tw tfoot td:not(.first):not(.big){display:none}
+  tbody tr:hover td{background:none}
+}
 /* el panel lateral es angosto: siempre en tarjetas */
 .dr-body .m-sort{display:flex;align-items:center;gap:10px;margin:0 0 12px}
 .dr-body .m-sort select{flex:1}
@@ -473,6 +489,88 @@ td input.dur-in{width:96px;text-align:right;padding:6px 8px;min-height:36px}
 .brand-name{display:none}
 body.locked .top{display:none}
 body.locked .gate{min-height:100vh}
+
+
+/* ---------- cursos: fichas ---------- */
+.sumbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.sumbar>div{background:var(--surface);padding:16px 20px;border-radius:var(--r);display:flex;flex-direction:column;gap:2px}
+.sumbar b{font:600 clamp(1.5rem,2.4vw,2rem)/1.05 var(--display);letter-spacing:-.02em;color:var(--brand);font-variant-numeric:tabular-nums}
+.sumbar span{font-size:.875rem;color:var(--muted)}
+.list-head{display:flex;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;margin-bottom:16px}
+.list-head .count{margin:0}
+.lsort{display:flex;align-items:center;gap:10px}
+.lsort select{min-width:220px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px}
+.ccard{display:flex;flex-direction:column;gap:14px;padding:20px;background:var(--hover);border-radius:var(--r);min-width:0}
+.ccard-main{all:unset;cursor:pointer;display:flex;flex-direction:column;gap:2px;min-height:48px}
+.ccard-main .cname{font:600 1.125rem/1.25 var(--display);color:var(--ink);transition:color .15s}
+.ccard-main:hover .cname{color:var(--link)}
+.ccard-main:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.stack.sm{height:12px}
+.cstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0}
+.cstats div{min-width:0}
+.cstats dt{font-size:.8125rem;color:var(--muted)}
+.cstats dd{margin:2px 0 0;font:600 1.125rem/1.2 var(--display);font-variant-numeric:tabular-nums}
+.cstats dd small{font:500 .8125rem var(--body);color:var(--muted);margin-left:6px}
+.cstats .dur-in{width:100%;min-height:36px;padding:4px 8px;text-align:right}
+.det-meta{margin:0 0 4px;color:var(--ink-2);font-size:.9375rem;line-height:1.5}
+.dr-body .sub{margin-top:24px}
+
+/* ---------- personas: filas ---------- */
+.plist{display:flex;flex-direction:column;gap:4px}
+.prow{all:unset;box-sizing:border-box;display:grid;grid-template-columns:44px minmax(0,1.5fr) minmax(0,1.1fr) 170px;gap:16px;align-items:center;padding:12px 16px;background:var(--hover);border-radius:var(--r);cursor:pointer;transition:background .12s}
+.prow:hover{background:var(--info-bg)}
+.prow:focus-visible{outline:3px solid var(--focus)}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--brand);color:#fff;font:600 .9375rem/1 var(--display);letter-spacing:.02em}
+.pinfo{min-width:0;display:flex;flex-direction:column;gap:2px}
+.pinfo b{font-weight:600;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pinfo small,.pprog small,.phrs small{font-size:.8125rem;color:var(--muted);overflow-wrap:anywhere}
+.pinfo small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pprog{display:flex;flex-direction:column;gap:6px;min-width:0}
+.pbar{display:block;height:8px;background:var(--sunken);border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--st-T);border-radius:4px;transform-origin:left;animation:grow .7s cubic-bezier(.2,.7,.3,1) both}
+.phrs{text-align:right;display:flex;flex-direction:column;gap:2px}
+.phrs b{font:600 1.375rem/1.1 var(--display);color:var(--teal-ink);font-variant-numeric:tabular-nums}
+.phrs b small{font:500 .875rem var(--body);color:var(--muted)}
+
+/* ---------- detalle: selector de estado ---------- */
+.segctl{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.segc{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 14px;background:var(--sunken);color:var(--ink-2);font:600 .9375rem/1.2 var(--body);border-radius:var(--r);cursor:pointer;transition:background .15s,color .15s}
+.segc b{font-family:var(--display);color:var(--ink);font-variant-numeric:tabular-nums}
+.segc:hover{background:var(--info-bg)}
+.segc.on{background:var(--brand);color:#fff}
+.segc.on b{color:#fff}
+.segc:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+
+/* ---------- responsivo ---------- */
+@media (min-width:1600px){.in{max-width:1480px}}
+@media (max-width:1100px) and (min-width:761px){
+  .top-row{flex-wrap:wrap;row-gap:4px}
+  .tabs{order:3;flex-basis:100%;margin-inline:-4px}
+  .top-actions{margin-left:auto}
+}
+@media (max-width:980px){.sumbar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){
+  .prow{grid-template-columns:44px minmax(0,1fr);row-gap:8px;align-items:start}
+  .prow .pinfo{grid-column:2;grid-row:1}
+  .prow .pinfo b{white-space:normal}
+  .prow .phrs{grid-column:2;grid-row:2;text-align:left;flex-direction:row;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .prow .pprog{grid-column:2;grid-row:3}
+}
+@media (max-width:760px){
+  .lsort{width:100%}.lsort select{flex:1;min-width:0}
+  .prow{padding:12px;gap:8px 12px;grid-template-columns:40px minmax(0,1fr)}
+  .av{width:40px;height:40px;font-size:.875rem}
+  .phrs b{font-size:1.25rem}
+  .segc{flex:1 1 auto;justify-content:space-between;padding:8px 12px}
+  .cstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-in{gap:6px 16px}
+  a.foot-meta{margin-left:0}
+}
+@media (max-width:360px){
+  .sumbar{grid-template-columns:1fr 1fr}
+  .tabs a{padding:10px 11px;font-size:.875rem}
+}
 
 /* movimiento: entradas al cambiar de pestaña; todo visible sin script */
 .gate-side>*{animation:rise .5s cubic-bezier(.2,.7,.3,1) both}
@@ -559,7 +657,6 @@ body.locked .gate{min-height:100vh}
         <p class="gate-err" id="gateErr" role="alert"></p>
       </form>
     </div>
-    <figure class="photo"><img src="assets/torre-control-cancun.webp" width="1600" height="1200" alt="Torre de control y domo de radar del Aeropuerto Internacional de Cancún, vistos desde la plataforma"><figcaption>Foto: Oleg Yunakov · <a href="https://commons.wikimedia.org/wiki/File:Cancun_International_Airport%27s_air_traffic_control_tower_and_a_radar_dome.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a></figcaption></figure>
   </section>
 
   <section class="filters" id="filters" hidden aria-label="Filtros">
@@ -580,9 +677,8 @@ body.locked .gate{min-height:100vh}
           <button class="big-v" id="big-v" data-drill="horas"></button>
           <div class="centerline" aria-hidden="true"><span class="dashes" id="dashes"></span><b id="cl-done"></b></div>
           <p class="big-u" id="big-u"></p>
-          <div class="apron-stats" id="apron-stats"></div>
         </div>
-        <figure class="photo"><img src="assets/torre-control-cancun.webp" width="1600" height="1200" alt="Torre de control y domo de radar del Aeropuerto Internacional de Cancún, vistos desde la plataforma"><figcaption>Foto: Oleg Yunakov · <a href="https://commons.wikimedia.org/wiki/File:Cancun_International_Airport%27s_air_traffic_control_tower_and_a_radar_dome.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a></figcaption></figure>
+        <div class="apron-stats" id="apron-stats"></div>
       </div>
       <div class="signs" id="signs"></div>
     </div>
@@ -674,10 +770,10 @@ body.locked .gate{min-height:100vh}
 </main>
 
 <footer class="foot">
-  <div class="foot-line" aria-hidden="true"><span class="dashes" id="foot-dashes"></span></div>
   <div class="in foot-in">
     <svg class="logo" viewBox="0 0 566.6 100" role="img" aria-label="Aeropuerto Internacional de Cancún · GOLA"><use href="#logo"/></svg>
-    <div class="foot-meta"><span id="foot-src"></span><span>Foto de la torre de control: Oleg Yunakov, <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, vía <a href="https://commons.wikimedia.org/wiki/File:Cancun_International_Airport%27s_air_traffic_control_tower_and_a_radar_dome.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>.</span><a href="#actualizar" id="adminLink" hidden>Actualizar datos</a></div>
+    <span class="foot-meta" id="foot-src"></span>
+    <a href="#actualizar" id="adminLink" class="foot-meta" hidden>Actualizar datos</a>
   </div>
 </footer>
 
@@ -904,7 +1000,7 @@ function renderPane(){
     $('#vacio-p').innerHTML=admin?'Ve a <a href="#actualizar">Actualizar</a> y sube el reporte de Coursebox.':'Cuando la Gerencia publique el reporte, aquí aparecerán las horas de capacitación.';return}
   if(locked)return;
   if(tab==='actualizar'){renderAdmin();return}
-  const rows=filtered();renderCtx(rows);syncHash();
+  const rows=filtered();renderCtx(rows);syncHash();drills={};
   if(tab==='panorama')renderPanorama(rows);
   if(tab==='cursos')renderCursos(rows);
   if(tab==='personas')renderPersonas(rows);
@@ -916,17 +1012,18 @@ let drills={},drCur=null,drFrom=null;
 const tipAttr=t=>` data-tip="${esc(t)}"`;
 function dr(key,spec){drills[key]=spec;return ` data-drill="${key}"`}
 function openDrill(key,from){const s=drills[key];if(!s)return;if(s.sort==='falta')s.rows=[...s.rows].sort((a,b)=>b.falta-a.falta);drCur=s;drFrom=from||document.activeElement;sorts.panel={k:s.sort||'horas',d:'desc'};lim.panel=200;
-  $('#dr-title').textContent=s.title;
+  $('#dr-title').textContent=s.code?`${s.code} · ${s.title}`:s.title;
   const per=s.mode==='per'?s.rows:porPersona(s.rows),h=sum(s.rows,r=>r.horas);
   $('#dr-sub').innerHTML=`<b>${fN(s.mode==='per'?s.rows.length:s.rows.length)}</b> ${s.mode==='per'?'personas':'inscripciones'}${s.mode==='per'?'':` · ${fN(per.length)} personas`} · <b>${fH(s.mode==='per'?sum(s.rows,r=>r.horas):h)} h</b>${s.note?` · ${esc(s.note)}`:''}`;
-  $('#dr-open').hidden=!s.fil;renderDrawer();
+  $('#dr-open').hidden=!s.fil;$('#dr-open').textContent=s.mode==='curso'?'Filtrar todo por este curso':'Abrir en Detalle';renderDrawer();
   const d=$('#drawer'),sc=$('#scrim');d.hidden=sc.hidden=false;requestAnimationFrame(()=>{d.classList.add('on');sc.classList.add('on')});
   document.body.style.overflow='hidden';$('#dr-title').focus({preventScroll:true})}
-function renderDrawer(){const s=drCur;if(!s)return;
+function renderDrawer(){const s=drCur;if(!s)return;const pre=s.mode==='curso'?cursoBody(s.course,s.rows):'';
   const cols=s.mode==='per'?[{k:'nombre',l:'Persona',v:r=>r.nombre,c:'first',h:r=>person(r)},{k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas),c:'big'},{k:'falta',l:'Por completar',n:1,v:r=>r.falta,f:r=>fH(r.falta)},{k:'ok',l:'Terminados',n:1,v:r=>r.ok,f:r=>`${fN(r.ok)} de ${fN(r.n)}`},{k:'avance',l:'Avance',n:1,v:r=>r.avance,h:r=>pctCell(r.avance)}]
     :[{k:'nombre',l:'Persona',v:r=>r.nombre,c:'first',h:r=>person(r)},{k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas),c:'big'},{k:'curso',l:'Curso',v:r=>r.curso,h:r=>cursoCell(r.curso)},{k:'est',l:'Estado',v:r=>r.est,h:r=>estBadge(r.est)},{k:'pct',l:'Avance',n:1,v:r=>r.pct,h:r=>pctCell(r.pct)},
       s.extra==='dias'?{k:'dias',l:'Días',n:1,v:r=>diasEntre(r.ins,r.fin)??-1,f:r=>{const d=diasEntre(r.ins,r.fin);return d==null?'—':d1(d)}}:{k:'ins',l:'Inscripción',date:1,v:r=>r.ins,f:r=>fDate(r.ins)}];
-  keepFocus(()=>{$('#dr-body').innerHTML=s.rows.length?table('panel',cols,s.rows,{limit:lim.panel}):'<p class="lead">No hay registros.</p>'})}
+  if(s.mode==='curso')cols.splice(2,1);
+  keepFocus(()=>{$('#dr-body').innerHTML=pre+(s.rows.length?table('panel',cols,s.rows,{limit:lim.panel}):'<p class="lead">No hay registros.</p>')})}
 function closeDrill(){const d=$('#drawer'),sc=$('#scrim');if(d.hidden)return;d.classList.remove('on');sc.classList.remove('on');document.body.style.overflow='';
   setTimeout(()=>{d.hidden=sc.hidden=true},280);drCur=null;if(drFrom&&drFrom.isConnected)drFrom.focus({preventScroll:true})}
 function drillXlsx(){const s=drCur;if(!s||!window.XLSX)return;const wb=XLSX.utils.book_new();
@@ -938,7 +1035,6 @@ function drillXlsx(){const s=drCur;if(!s||!window.XLSX)return;const wb=XLSX.util
 /* ---------- panorama ---------- */
 const dashes=n=>'<i></i>'.repeat(n);
 function renderPanorama(rows){
-  drills={};
   const n=rows.length,empty=!n;
   ['#apron','#sec-mes','#sec-curso','#sec-area'].forEach(s=>{$(s).hidden=empty});
   $('#pan-empty').innerHTML=empty?`<div class="panel-s" style="margin-top:24px">${noMatch()}</div>`:'';
@@ -1021,33 +1117,38 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){hideTip();closeDril
   else if(e.key==='Tab'&&!$('#drawer').hidden){const f=[...$('#drawer').querySelectorAll('button:not([hidden]):not(:disabled),select,[tabindex="-1"]')].filter(x=>x.offsetParent!==null||x.id==='dr-title');if(!f.length)return;const a=f[0],z=f[f.length-1];
     if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
 
+const sortSel=(name,opts)=>{const s=sorts[name];return `<label class="lsort"><span class="label">Ordenar por</span><select data-msort="${name}">${opts.map(([k,d,l])=>`<option value="${k}:${d}" ${s.k===k&&s.d===d?'selected':''}>${l}</option>`).join('')}</select></label>`};
+const sortBy=(rows,name,get)=>{const s=sorts[name];return [...rows].sort((a,b)=>cmp(get(a,s.k),get(b,s.k))*(s.d==='asc'?1:-1))};
+const initials=n=>n.split(/\s+/).filter(w=>w.length>2||/^[A-ZÁÉÍÓÚÑ]/.test(w)).slice(0,2).map(w=>w[0]).join('').toUpperCase()||n.slice(0,2).toUpperCase();
+const miniStack=(g,n,key)=>`<div class="stack sm" role="img" aria-label="${fN(g.T.length)} terminadas, ${fN(g.P.length)} en progreso, ${fN(g.S.length)} sin iniciar">${['T','P','S'].map(e=>g[e].length?`<button class="seg ${e}" style="width:${g[e].length/n*100}%"${dr(key+e,{title:`${EST[e]}`,mode:'ins',rows:g[e]})}${tipAttr(`${EST[e]} · ${fN(g[e].length)} de ${fN(n)}`)} aria-label="${EST[e]}: ${g[e].length}"></button>`:'').join('')}</div>`;
+
+/* ---------- cursos: una ficha por curso; el detalle se abre en el panel ---------- */
 function renderCursos(rows){
-  const cs=porCurso(filtered('curso'));
-  const cols=[{k:'curso',l:'Curso',v:r=>r.curso,c:'wrap first',h:r=>`<button class="link ccell${r.id===F.curso?' on':''}" data-act="pick-curso" data-cid="${r.id}" aria-pressed="${r.id===F.curso}">${cursoCell(r.curso)}</button>`},
-    {k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas),c:'big'},
-    {k:'n',l:'Inscritos',n:1,v:r=>r.n,f:r=>fN(r.n)},{k:'tasa',l:'Terminaron',n:1,v:r=>r.tasa,h:r=>pctCell(r.tasa,`${fN(r.ok)} de ${fN(r.n)}`)},
-    {k:'avance',l:'Avance promedio',n:1,v:r=>r.avance,h:r=>pctCell(r.avance)},
-    {k:'dur',l:'Duración (h)',n:1,v:r=>r.dur,h:r=>admin?`<input class="dur-in" type="number" min="0" step="0.25" inputmode="decimal" value="${r.dur||''}" placeholder="—" data-cid="${r.id}" aria-label="Duración en horas de ${esc(r.curso)}">`:(r.dur?fH(r.dur):'<span class="muted">Sin capturar</span>')},
-    {k:'falta',l:'Por completar',n:1,v:r=>r.falta,f:r=>fH(r.falta)}];
+  const cs=porCurso(filtered('curso')).filter(c=>!F.curso||c.id===F.curso);
   const sinDur=data.cursos.filter(c=>!(+c.duracion)).length;
-  $('#cursos-lead').textContent='Pulsa un curso para ver sus módulos y exámenes; el filtro de curso se aplica en todas las pestañas.'+(sinDur?` ${sinDur} ${sinDur===1?'curso no tiene':'cursos no tienen'} duración capturada y sus horas cuentan como cero.`:'')+(admin?' Puedes editar la duración aquí; después publica los cambios.':'');
+  $('#cursos-lead').textContent='Pulsa un curso para ver sus módulos, exámenes y a las personas inscritas.'+(sinDur?` ${sinDur} ${sinDur===1?'curso no tiene':'cursos no tienen'} duración capturada y sus horas cuentan como cero.`:'')+(admin?' Puedes editar la duración en cada ficha; después publica los cambios.':'');
+  if(!cs.length){$('#t-cursos').innerHTML=noMatch();$('#curso-det').innerHTML='';return}
+  const list=sortBy(cs,'cursos',(r,k)=>r[k]);
   const tn=sum(cs,r=>r.n),tok=sum(cs,r=>r.ok);
-  $('#t-cursos').innerHTML=cs.length?table('cursos',cols,cs,{foot:`<tr><td class="first">Total</td><td class="num big">${fH(sum(cs,r=>r.horas))}</td><td class="num">${fN(tn)}</td><td class="num">${fP(tn?tok/tn:0)}</td><td></td><td></td><td class="num">${fH(sum(cs,r=>r.falta))}</td></tr>`}):noMatch();
-  $('#curso-det').innerHTML=F.curso?cursoDetalle(data.cursos.find(c=>c.id===F.curso),rows):'';
-}
-function cursoDetalle(c,rows){
-  if(!c)return '';const rs=rows.map(r=>r.src),n=rs.length,sp=splitCurso(c.nombre);
-  const done=rows.filter(r=>r.est==='T'),ds=done.map(r=>diasEntre(r.ins,r.fin)).filter(x=>x!=null);
-  let d=`<div class="panel-s det"><div class="det-head"><div>${sp.code?`<span class="code">${esc(sp.code)}</span>`:''}<h2>${esc(sp.name)}</h2><p class="lead">${esc([c.metodo&&`Evaluación ${c.metodo==='Completion'?'por terminación':'por calificación'}`,c.minimo&&`mínimo aprobatorio ${c.minimo}`,+c.duracion?`${fH(+c.duracion)} h de duración`:'duración sin capturar',ds.length&&`${d1(mean(ds))} días en promedio para terminar`,c.creador&&`autor: ${cleanName(c.creador)}`].filter(Boolean).join(' · '))}</p></div><button class="btn secondary s" data-act="pick-curso" data-cid="">Quitar filtro de curso</button></div>`;
-  if(!n)return d+noMatch()+'</div>';
-  d+='<div class="grid2 det-grid">';
+  $('#curso-det').innerHTML=`<div class="sumbar"><div><b>${fN(cs.length)}</b><span>cursos</span></div><div><b>${fN(tn)}</b><span>inscripciones</span></div><div><b>${fP(tn?tok/tn:0)}</b><span>terminadas</span></div><div><b>${fH(sum(cs,r=>r.horas))} h</b><span>acumuladas</span></div></div>`;
+  $('#t-cursos').innerHTML=`<div class="list-head"><p class="count">${fN(cs.length)} cursos</p>${sortSel('cursos',[['curso','asc','Nombre, A a Z'],['n','desc','Más inscritos'],['tasa','desc','Mayor terminación'],['tasa','asc','Menor terminación'],['horas','desc','Más horas']])}</div><div class="cgrid">`+
+    list.map(c=>{const rs=rows.filter(r=>r.cid===c.id),sp=splitCurso(c.curso),g={T:[],P:[],S:[]};rs.forEach(r=>g[r.est].push(r));const cur=data.cursos.find(x=>x.id===c.id);
+      dr('cur'+c.id,{title:sp.name,code:sp.code,mode:'curso',course:cur,rows:rs,fil:{curso:c.id}});
+      return `<article class="ccard"><button class="ccard-main" data-drill="cur${c.id}"><span class="code">${esc(sp.code)}</span><span class="cname">${esc(sp.name)}</span></button>
+        ${c.n?miniStack(g,c.n,'cs'+c.id):'<p class="note">Sin inscripciones con estos filtros.</p>'}
+        <dl class="cstats"><div><dt>Inscritos</dt><dd>${fN(c.n)}</dd></div><div><dt>Terminaron</dt><dd>${fN(c.ok)}<small>${fP(c.tasa)}</small></dd></div><div><dt>Horas</dt><dd class="hrs">${fH(c.horas)}</dd></div><div><dt>Duración</dt><dd>${admin?`<input class="dur-in" type="number" min="0" step="0.25" inputmode="decimal" value="${c.dur||''}" placeholder="—" data-cid="${c.id}" aria-label="Duración en horas de ${esc(c.curso)}">`:(c.dur?`${fH(c.dur)} h`:'<span class="muted">Sin capturar</span>')}</dd></div></dl></article>`}).join('')+'</div>'}
+function cursoBody(c,rows){
+  const rs=rows.map(r=>r.src),n=rs.length,g={T:[],P:[],S:[]};rows.forEach(r=>g[r.est].push(r));
+  const done=g.T,ds=done.map(r=>diasEntre(r.ins,r.fin)).filter(x=>x!=null);
+  let d=`<p class="det-meta">${esc([c.metodo&&`Evaluación ${c.metodo==='Completion'?'por terminación':'por calificación'}`,c.minimo&&`mínimo aprobatorio ${c.minimo}`,+c.duracion?`${fH(+c.duracion)} h de duración`:'duración sin capturar',ds.length&&`${d1(mean(ds))} días en promedio para terminar`,c.creador&&`autor: ${cleanName(c.creador)}`].filter(Boolean).join(' · '))}</p>`;
+  if(!n)return d+'<p class="lead">No hay inscripciones con estos filtros.</p>';
+  d+=`<h3 class="sub">Estado de las inscripciones</h3>${miniStack(g,n,'dc')}<ul class="legend" style="margin-top:10px"><li><i style="background:var(--st-T)"></i>Terminado ${fN(g.T.length)}</li><li><i style="background:var(--st-P)"></i>En progreso ${fN(g.P.length)}</li><li><i style="background:var(--st-S)"></i>Sin iniciar ${fN(g.S.length)}</li></ul>`;
   const vm=c.modulos.length?rs.filter(f=>f.m&&f.m.length===c.modulos.length&&/[CI]/.test(f.m)):[];
   if(vm.length){const cnt=c.modulos.map((_,i)=>vm.filter(f=>f.m[i]==='C').length),mx=Math.max(...cnt),mn=Math.min(...cnt);
     // solo se marca el módulo con menos avance si la caída es real (al menos 10% del grupo)
     const flag=i=>cnt[i]===mn&&mx-mn>=Math.max(2,vm.length*.1);
-    d+=`<div><h3>Módulos completados</h3><p class="note">De ${fN(vm.length)} personas con registro de módulos.${c.modulos.some((_,i)=>flag(i))?' En rojo y marcados “menor avance”, los módulos donde más personas se detienen.':''}</p>`+
-      `<details class="mods"${c.modulos.length<=12?' open':''}><summary>${c.modulos.length} módulos</summary>`+c.modulos.map((m,i)=>hb(m,cnt[i]/vm.length,`${fN(cnt[i])}${flag(i)?' · menor avance':''}`,flag(i))).join('')+'</details></div>'}
-  d+='<div>';
+    d+=`<h3 class="sub">Módulos completados</h3><p class="note">De ${fN(vm.length)} personas con registro de módulos.${c.modulos.some((_,i)=>flag(i))?' En rojo y marcados “menor avance”, donde más personas se detienen.':''}</p>`+
+      `<details class="mods"${c.modulos.length<=10?' open':''}><summary>Ver los ${c.modulos.length} módulos</summary>`+c.modulos.map((m,i)=>hb(m,cnt[i]/vm.length,`${fN(cnt[i])}${flag(i)?' · menor avance':''}`,flag(i))).join('')+'</details>'}
   if(c.quizzes.length){c.quizzes.forEach((q,k)=>{const tr=rs.filter(f=>f.z&&f.z[k]&&f.z[k][1]>0);
     d+=`<h3 class="sub">${esc(q.titulo)}</h3>`;
     if(!tr.length){d+='<p class="note">Nadie lo ha presentado todavía.</p>';return}
@@ -1056,23 +1157,28 @@ function cursoDetalle(c,rows){
     if(q.preguntas>1){const pf=[];for(let j=0;j<q.preguntas;j++){let bad=0,tot=0;tr.forEach(f=>{const a=f.z[k][3][j];if(a==='I'){bad++;tot++}else if(a==='C')tot++});if(tot)pf.push({j,bad,tot,r:bad/tot})}
       const top=pf.filter(x=>x.bad).sort((a,b)=>b.r-a.r).slice(0,5);
       d+=top.length?'<p class="note">Preguntas más falladas (en rojo, las que falla 30% o más):</p>'+top.map(x=>hb('Pregunta '+(x.j+1),x.r,`${x.bad} de ${x.tot}`,x.r>=.3)).join(''):'<p class="note">Nadie ha fallado preguntas de este examen.</p>'}})}
-  else d+='<h3>Exámenes</h3><p class="note">Este curso no tiene exámenes.</p>';
-  return d+'</div></div></div>'}
+  else d+='<h3 class="sub">Exámenes</h3><p class="note">Este curso no tiene exámenes.</p>';
+  return d+'<h3 class="sub">Personas inscritas</h3>'}
 
+/* ---------- personas: una fila legible por persona ---------- */
 function renderPersonas(rows){
   if(!rows.length){$('#t-personas').innerHTML=noMatch();return}
-  const ps=porPersona(rows);
-  const cols=[{k:'nombre',l:'Persona',v:r=>r.nombre,c:'first',h:r=>person(r,true)},{k:'horas',l:'Horas acumuladas',n:1,v:r=>r.horas,h:r=>hrs(r.horas),c:'big'},
-    {k:'falta',l:'Por completar',n:1,v:r=>r.falta,f:r=>fH(r.falta)},{k:'ok',l:'Cursos terminados',n:1,v:r=>r.ok,f:r=>`${fN(r.ok)} de ${fN(r.n)}`},
-    {k:'avance',l:'Avance promedio',n:1,v:r=>r.avance,h:r=>pctCell(r.avance)},{k:'area',l:'Área',v:r=>r.area,c:'wrap'}];
-  $('#t-personas').innerHTML=`<p class="count">${fN(ps.length)} personas</p>`+table('personas',cols,ps,{limit:lim.personas,foot:`<tr><td class="first">Total</td><td class="num big">${fH(sum(ps,r=>r.horas))}</td><td class="num">${fH(sum(ps,r=>r.falta))}</td><td colspan="3"></td></tr>`})}
+  const ps=sortBy(porPersona(rows),'personas',(r,k)=>r[k]),shown=ps.slice(0,lim.personas);
+  $('#t-personas').innerHTML=`<div class="list-head"><p class="count">${fN(ps.length)} personas · ${fH(sum(ps,r=>r.horas))} h acumuladas · ${fH(sum(ps,r=>r.falta))} h por completar</p>${sortSel('personas',[['horas','desc','Más horas acumuladas'],['falta','desc','Más horas por completar'],['avance','asc','Menor avance'],['avance','desc','Mayor avance'],['nombre','asc','Nombre, A a Z']])}</div><div class="plist">`+
+    shown.map((p,i)=>{const mine=rows.filter(r=>(r.email||r.nombre).toLowerCase()===(p.email||p.nombre).toLowerCase());
+      return `<button class="prow"${dr('pe'+i,{title:p.nombre,note:p.email,mode:'ins',rows:mine,fil:{q:p.email||p.nombre}})}><span class="av" aria-hidden="true">${esc(initials(p.nombre))}</span><span class="pinfo"><b>${esc(p.nombre)}</b><small>${esc(p.email)}${p.area?` · ${esc(p.area)}`:''}</small></span><span class="pprog"><span class="pbar"><i style="width:${p.avance*100}%"></i></span><small>${fP(p.avance)} de avance · ${fN(p.ok)} de ${fN(p.n)} cursos</small></span><span class="phrs"><b>${fH(p.horas)}<small> h</small></b><small>${p.falta?`${fH(p.falta)} h por completar`:'todo completo'}</small></span></button>`}).join('')+'</div>'+
+    (ps.length>shown.length?`<div class="more"><button class="btn secondary" data-act="more" data-t="personas">Mostrar ${fN(Math.min(300,ps.length-shown.length))} más (quedan ${fN(ps.length-shown.length)})</button></div>`:'')}
 
+/* ---------- detalle: tabla completa con selector de estado ---------- */
 function renderDetalle(rows){
-  if(!rows.length){$('#t-detalle').innerHTML=noMatch();return}
+  const all=ALL.length?filtered('estado'):[],cnt={T:0,P:0,S:0};all.forEach(r=>cnt[r.est]++);
+  const segBtn=(v,l,n)=>`<button class="segc${F.estado===v?' on':''}" data-act="set-estado" data-k="${v}" aria-pressed="${F.estado===v}">${l}<b>${fN(n)}</b></button>`;
+  const head=`<div class="segctl" role="group" aria-label="Filtrar por estado">${segBtn('','Todos',all.length)}${segBtn('T','Terminado',cnt.T)}${segBtn('P','En progreso',cnt.P)}${segBtn('S','Sin iniciar',cnt.S)}</div>`;
+  if(!rows.length){$('#t-detalle').innerHTML=head+noMatch();return}
   const cols=[{k:'nombre',l:'Persona',v:r=>r.nombre,c:'first',h:r=>person(r)},{k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas),c:'big'},
     {k:'curso',l:'Curso',v:r=>r.curso,c:'wrap',h:r=>cursoCell(r.curso)},{k:'est',l:'Estado',v:r=>r.est,h:r=>estBadge(r.est)},
     {k:'pct',l:'Avance',n:1,v:r=>r.pct,h:r=>pctCell(r.pct)},{k:'ins',l:'Inscripción',date:1,v:r=>r.ins,f:r=>fDate(r.ins)},{k:'fin',l:'Término',date:1,v:r=>r.fin,f:r=>fDate(r.fin)||'—'}];
-  $('#t-detalle').innerHTML=`<p class="count">${fN(rows.length)} inscripciones</p>`+table('detalle',cols,rows,{limit:lim.detalle})}
+  $('#t-detalle').innerHTML=head+`<p class="count">${fN(rows.length)} inscripciones</p>`+table('detalle',cols,rows,{limit:lim.detalle})}
 
 /* ---------- administrador ---------- */
 function renderAdmin(){
@@ -1171,8 +1277,9 @@ document.addEventListener('click',async e=>{
   const a=b.dataset.act;
   if(a==='more'){lim[b.dataset.t]+=300;b.dataset.t==='panel'?renderDrawer():rerender()}
   else if(a==='close-dr')closeDrill();
+  else if(a==='set-estado'){F.estado=b.dataset.k;resetLim();fillFilters();rerender()}
   else if(a==='dr-xlsx')drillXlsx();
-  else if(a==='dr-open'){const f=drCur&&drCur.fil;if(f){Object.assign(F,f);resetLim();closeDrill();tab='detalle';render();window.scrollTo(0,0)}}
+  else if(a==='dr-open'){const f=drCur&&drCur.fil;if(f){const toCurso=drCur.mode==='curso';Object.assign(F,f);resetLim();closeDrill();tab=toCurso?'panorama':'detalle';render();window.scrollTo(0,0)}}
   else if(a==='clear-f'){Object.keys(F).forEach(k=>F[k]='');resetLim();fillFilters();rerender();$('#f-q').focus({preventScroll:true})}
   else if(a==='rm-f'){F[b.dataset.k]='';resetLim();fillFilters();rerender();const c=$('#chips .chip');(c||$('#f-q')).focus({preventScroll:true})}
   else if(a==='more-f'){const o=$('#filters').classList.toggle('open');b.setAttribute('aria-expanded',o)}
@@ -1219,7 +1326,7 @@ window.addEventListener('hashchange',route);
 
 /* ---------- arranque ---------- */
 (async()=>{
-  admin=store.get(LS_ADMIN)==='1';$('#foot-dashes').innerHTML=dashes(60);
+  admin=store.get(LS_ADMIN)==='1';
   const t0=readHash();tab=visibleTabs().some(x=>x[0]===t0)?t0:'panorama';   // antes de descifrar, para no pisar el enlace recibido
   try{pub=await fetchPub()}catch(e){}
   if(pub){locked=true;const saved=sess.get(PW_KEY)||store.get(PW_KEY);
