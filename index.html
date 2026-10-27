@@ -488,7 +488,7 @@ a.foot-meta{color:#fff;margin-left:auto}
 .filters input::placeholder{color:#c3d6ee}
 .filters .btn.secondary{background:var(--field-2);color:#fff}
 .brand-name{display:none}
-body.locked .top{display:none}
+body.locked .top,body.locked .foot{display:none}
 body.locked .gate{min-height:100vh}
 
 
@@ -624,6 +624,22 @@ main{flex:1 0 auto;width:100%}
 .dur-wrap{display:flex;align-items:center;gap:6px}
 .dur-wrap span{font:500 .875rem var(--body);color:var(--muted)}
 
+
+/* acceso por correo y usuarios */
+.gate-msg{display:flex;flex-direction:column;gap:16px;align-items:flex-start;color:var(--field-soft);font-size:1rem;line-height:1.55}
+.gate-msg p{margin:0;max-width:52ch}
+.gate-msg b{color:#fff}
+.gate-msg .btn.secondary{background:var(--field-2);color:#fff}
+.ufrm{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1.2fr) minmax(0,.8fr) auto;gap:12px 16px;align-items:end;margin-top:16px}
+@media (max-width:860px){.ufrm{grid-template-columns:1fr 1fr}.ufrm .fld:first-child{grid-column:1/-1}}
+@media (max-width:480px){.ufrm{grid-template-columns:1fr}}
+.ulist{display:flex;flex-direction:column;gap:4px}
+.urow{display:grid;grid-template-columns:44px minmax(0,1fr) 180px auto;gap:16px;align-items:center;padding:12px 16px;background:var(--hover);border-radius:var(--r)}
+.urow .pinfo b{display:flex;align-items:center;gap:8px;white-space:normal}
+.urol select{width:100%;min-height:40px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:640px){.urow{grid-template-columns:40px minmax(0,1fr);row-gap:10px}.urow .urol{grid-column:2}.urow .btn{grid-column:2;justify-self:start}}
+
 /* foco visible sobre el azul */
 .top :focus-visible,.filters :focus-visible,.apron :focus-visible,.gate :focus-visible,.dr-head :focus-visible{outline-color:#fff!important}
 .sign:focus-visible{outline:3px solid #fff!important}
@@ -704,13 +720,13 @@ main{flex:1 0 auto;width:100%}
   <section class="gate" id="gate" hidden>
     <div class="gate-side">
       <svg class="logo" viewBox="0 0 566.6 100" role="img" aria-label="Aeropuerto Internacional de Cancún · GOLA"><use href="#logo"/></svg>
-      <div><h1>Horas de capacitación</h1><p class="lead">Gerencia de Operaciones Lado Aire. Escribe la contraseña que te compartieron para consultar el avance de los cursos.</p></div>
+      <div><h1>Horas de capacitación</h1><p class="lead">Gerencia de Operaciones Lado Aire. Escribe tu correo y te enviamos un enlace para entrar; solo tienen acceso las personas autorizadas.</p></div>
       <form class="gate-form" id="gateForm">
-        <label class="fld"><span class="label">Contraseña</span><span class="pw-wrap"><input type="password" id="gatePw" autocomplete="current-password" required aria-describedby="gateErr"><button type="button" class="pw-eye" data-act="pw-eye" aria-pressed="false">Mostrar</button></span></label>
-        <label class="check"><input type="checkbox" id="gateRemember"> Recordar en este dispositivo</label>
-        <div><button class="btn taxi" type="submit" id="gateBtn">Entrar</button></div>
+        <label class="fld"><span class="label">Tu correo de ASUR</span><input type="email" id="gateEmail" autocomplete="email" inputmode="email" placeholder="nombre@asur.com.mx" required aria-describedby="gateErr"></label>
+        <div><button class="btn taxi" type="submit" id="gateBtn">Enviarme el enlace de acceso</button></div>
         <p class="gate-err" id="gateErr" role="alert"></p>
       </form>
+      <div class="gate-msg" id="gateMsg" hidden role="status"></div>
     </div>
   </section>
 
@@ -781,42 +797,34 @@ main{flex:1 0 auto;width:100%}
     <div class="panel-s">
       <h3>Publicar para tus compañeros</h3>
       <p class="lead" id="pub-lead"></p>
-      <ol class="steps-pub" id="pub-steps">
-        <li id="st-1">
-          <h3>Elige la contraseña</h3>
-          <div id="pw-choice" class="pw-choice" hidden>
-            <label class="check"><input type="radio" name="pwmode" value="keep" checked> Usar la contraseña actual</label>
-            <label class="check"><input type="radio" name="pwmode" value="new"> Cambiar la contraseña</label>
-          </div>
-          <div class="pub" id="pw-new">
-            <label class="fld"><span class="label">Contraseña nueva</span><input type="password" id="pubPw" autocomplete="new-password" minlength="10" aria-describedby="pw-hint"></label>
-            <label class="fld"><span class="label">Repítela</span><input type="password" id="pubPw2" autocomplete="new-password" minlength="10" aria-describedby="pw-hint"></label>
-          </div>
-          <p class="note" id="pw-hint">Mínimo 10 caracteres. Si la cambias, tus compañeros necesitarán la nueva para entrar. No se puede recuperar: guárdala en un lugar seguro.</p>
-        </li>
-        <li id="st-2">
-          <h3>Descarga el archivo cifrado</h3>
-          <p class="note">Se cifra en tu navegador con AES-256; sin la contraseña no se puede leer.</p>
-          <button class="btn" type="button" data-act="encrypt" id="pubBtn">Descargar datos.enc.json</button>
-          <p class="step-msg" id="st-2-msg" role="status"></p>
-        </li>
-        <li id="st-3">
-          <h3>Súbelo a GitHub</h3>
-          <p class="note">Abre <a id="upLink" target="_blank" rel="noopener">la página de carga del repositorio</a>, arrastra <code>datos.enc.json</code> desde Descargas y pulsa “Commit changes”.</p>
-        </li>
-        <li id="st-4">
-          <h3>Verifica que ya está en línea</h3>
-          <p class="note">GitHub tarda uno o dos minutos en publicarlo.</p>
-          <button class="btn secondary" type="button" data-act="verify" id="verBtn">Verificar publicación</button>
-          <p class="step-msg" id="st-4-msg" role="status"></p>
-        </li>
-      </ol>
+      <div class="row-actions"><button class="btn" type="button" data-act="publish" id="pubBtn">Publicar</button><p class="step-msg" id="pub-msg" role="status"></p></div>
+    </div>
+    <div class="panel-s flat" id="old-card" hidden>
+      <h3>Traer los datos del sitio anterior</h3>
+      <p class="lead">Si ya habías publicado con la contraseña compartida, escríbela para recuperar ese reporte con sus duraciones. Después pulsa Publicar.</p>
+      <form class="pub" id="oldForm"><label class="fld"><span class="label">Contraseña anterior</span><input type="password" id="oldPw" autocomplete="off" required></label><button class="btn secondary" type="submit">Recuperar</button></form>
+      <p class="step-msg" id="old-msg" role="status"></p>
     </div>
     <div class="panel-s flat">
       <h3>Borrador en este navegador</h3>
       <p class="lead" id="draft-lead"></p>
-      <div class="row-actions"><button class="btn danger" data-act="rm-draft" id="rmDraft" data-confirm="¿Descartar?">Descartar borrador</button><button class="btn ghost" data-act="admin-off">Salir del modo administrador</button></div>
+      <div class="row-actions"><button class="btn danger" data-act="rm-draft" id="rmDraft" data-confirm="¿Descartar?">Descartar borrador</button></div>
     </div>
+  </section>
+
+  <section class="pane" id="p-usuarios" hidden>
+    <div class="page-title"><h2>Usuarios</h2><p class="lead">Solo las personas de esta lista pueden entrar. Consulta ve los datos; Administrador además actualiza el reporte y administra usuarios.</p></div>
+    <div class="panel-s">
+      <h3>Agregar usuario</h3>
+      <form class="ufrm" id="userForm">
+        <label class="fld"><span class="label">Correo</span><input type="email" id="uEmail" required placeholder="nombre@asur.com.mx" autocomplete="off"></label>
+        <label class="fld"><span class="label">Nombre</span><input type="text" id="uNombre" placeholder="Se completa si aparece en el reporte" autocomplete="off"></label>
+        <label class="fld"><span class="label">Perfil</span><select id="uRol"><option value="consulta">Consulta</option><option value="admin">Administrador</option></select></label>
+        <button class="btn" type="submit" id="uBtn">Agregar</button>
+      </form>
+      <p class="step-msg" id="u-msg" role="status"></p>
+    </div>
+    <div class="panel-s"><div id="t-usuarios"></div></div>
   </section>
 
   <section class="pane" id="p-vacio" hidden>
@@ -843,6 +851,7 @@ main{flex:1 0 auto;width:100%}
 <div class="tip" id="tip" role="tooltip"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js" integrity="sha384-Rj26LVGvoeRVR6+mwQmFfcR3QOBEwT+ZmuCWpuiqeTzJpCs0ER4ITAWGb4Hiy3Ok" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 (function(){
@@ -857,18 +866,21 @@ const pl=(n,a,b)=>`${fN(n)} ${n===1?a:b}`;
 const d1=n=>n.toLocaleString('es-MX',{maximumFractionDigits:1});
 const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 const col=new Intl.Collator('es',{sensitivity:'base',numeric:true});
-const TABS=[['panorama','Panorama'],['cursos','Cursos'],['personas','Personas'],['detalle','Detalle'],['actualizar','Actualizar']];
+const TABS=[['panorama','Panorama'],['cursos','Cursos'],['personas','Personas'],['detalle','Detalle'],['actualizar','Actualizar'],['usuarios','Usuarios']];
+const ADMIN_TABS=['actualizar','usuarios'];
 const EST={T:'Terminado',P:'En progreso',S:'Sin iniciar'};
 const ESTF={T:'Terminado',P:'En progreso',S:'Sin iniciar',N:'Pendiente'};
-const DATA_URL='datos.enc.json',LS_DRAFT='asur-horas-v2-borrador',LS_ADMIN='asur-horas-v2-admin',PW_KEY='asur-horas-v2-pw',REPO='https://github.com/smayovs/horas-capacitacion-asur';
+// Supabase: la clave publicable es pública por diseño; los permisos los aplica la base de datos (ver supabase/esquema.sql)
+const SB_URL='https://aepiqogklpqkfjicwqlx.supabase.co',SB_KEY='sb_publishable_OFn3e7Hc6i7_1m0j7KVPIA_EA9cEIY6';
+const OLD_URL='datos.enc.json',LS_DRAFT='asur-horas-v3-borrador',DOMAIN='@asur.com.mx';
 const X_ICON='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 
 /* ---------- estado ---------- */
 let data=null,       // {generado,fecha,reporte,cursos:[{id,nombre,duracion,metodo,minimo,modulos,quizzes,filas}]}
-    pub=null,        // archivo cifrado publicado (o null)
-    pubData=null,    // datos publicados ya descifrados
-    pw='',           // contraseña con la que se descifró
-    admin=false, locked=false, tab='panorama', stage=null, lastEnc=null;
+    pubData=null,    // lo publicado en Supabase
+    sb=null, me=null,// cliente y perfil de quien entró {email,nombre,rol}
+    gateMode='login',gateInfo='',users=[],
+    admin=false, locked=true, tab='panorama', stage=null;
 const F={q:'',curso:'',area:'',estado:'',desde:'',hasta:''};
 const sorts={panel:{k:'horas',d:'desc'},cursos:{k:'curso',d:'asc'},personas:{k:'horas',d:'desc'},detalle:{k:'ins',d:'desc'},area:{k:'tasa',d:'asc'}};
 const lim={personas:200,detalle:200,panel:200};
@@ -884,13 +896,9 @@ const b64=u=>{let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.a
 const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
 async function pipe(bytes,stream){return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(stream)).arrayBuffer())}
 async function keyFor(pass,salt,it){const base=await crypto.subtle.importKey('raw',te.encode(pass),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:it,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
-async function encrypt(obj,pass){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),it=310000;
-  const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},await keyFor(pass,salt,it),await pipe(te.encode(JSON.stringify(obj)),new CompressionStream('gzip'))));
-  return {v:1,alg:'AES-GCM-256',kdf:'PBKDF2-SHA256',it,salt:b64(salt),iv:b64(iv),generado:obj.generado,ct:b64(ct)}}
 async function decrypt(enc,pass){const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(enc.iv)},await keyFor(pass,unb64(enc.salt),enc.it),unb64(enc.ct));
   return JSON.parse(td.decode(await pipe(new Uint8Array(pt),new DecompressionStream('gzip'))))}
-// GitHub Pages guarda en caché hasta 10 min; el parámetro evita leer una versión vieja.
-async function fetchPub(){const r=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return null;const j=await r.json();return j&&j.ct?j:null}
+async function fetchOld(){const r=await fetch(OLD_URL+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)return null;const j=await r.json();return j&&j.ct?j:null}
 
 /* ---------- lectura del reporte de Coursebox ---------- */
 function hid(s){s=s.trim().toLowerCase();let a=2166136261,b=5381;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a^=c;a=Math.imul(a,16777619);b=Math.imul(b,33)^c}return 'c'+(a>>>0).toString(36)+(b>>>0).toString(36)+s.length.toString(36)}
@@ -1004,7 +1012,7 @@ const kpi=(k,v,s)=>`<div class="kpi"><div class="k">${k}</div><div class="v">${v
 const hb=(l,frac,v,bad)=>`<div class="hb${bad?' bad':''}"><span class="l">${esc(l)}</span><span class="t"><b style="width:${Math.round(Math.max(0,Math.min(1,frac))*100)}%"></b></span><span class="v">${v}</span></div>`;
 
 /* ---------- vista ---------- */
-const visibleTabs=()=>TABS.filter(([id])=>id!=='actualizar'||admin);
+const visibleTabs=()=>TABS.filter(([id])=>!ADMIN_TABS.includes(id)||admin);
 // Al reconstruir el HTML se perdería el foco: se recuerda el control activo y se restaura.
 function focusKey(){const a=document.activeElement;if(!a||a===document.body||!$('main').contains(a)&&!$('#ctx').contains(a)&&!$('#drawer').contains(a))return null;
   if(a.id)return '#'+a.id;const d=a.dataset;
@@ -1022,18 +1030,18 @@ function renderChrome(){
   $('#tabs').hidden=locked;
   $('#tabs').innerHTML=locked?'':visibleTabs().map(([id,l])=>`<a href="#${id}" ${id===tab?'aria-current="page"':''}>${l}</a>`).join('');
   const cur=$('#tabs [aria-current]');if(cur)cur.scrollIntoView({block:'nearest',inline:'center'});
-  $('#filters').hidden=$('#ctx').hidden=!ready||tab==='actualizar';
+  $('#filters').hidden=$('#ctx').hidden=!ready||ADMIN_TABS.includes(tab);
   $('#btnXlsx').hidden=!ready||!window.XLSX;
-  $('#btnLock').hidden=!(pub&&pw);
+  $('#btnLock').hidden=!me&&gateMode!=='denied';
   const s=$('#sync');
   if(locked){s.className='stamp plain';s.textContent=''}
   else if(!data){s.className='stamp warn';s.textContent='Sin datos'}
   else if(isDraft()){s.className='stamp warn';s.textContent='Borrador sin publicar'}
   else{s.className='stamp ok';s.textContent='Datos al '+fDate(data.fecha||data.generado)}
   $('#foot-src').textContent=data&&!locked?`Fuente: ${data.reporte||'reporte de Coursebox'} · ${data.cursos.length} cursos · generado el ${fDate(data.generado)}`:'Control de horas de capacitación · GOLA';
-  $('#adminLink').hidden=admin||!!pub;
+  $('#adminLink').hidden=true;
   if(ready)fillFilters();
-  if(locked)setTimeout(()=>{if(locked&&document.activeElement===document.body)$('#gatePw').focus()},0);
+  if(locked)renderGate();
 }
 function fillFilters(){
   const cs=[...data.cursos].sort((a,b)=>col.compare(a.nombre,b.nombre));
@@ -1051,13 +1059,14 @@ function renderCtx(rows){const pers=new Set(rows.map(r=>(r.email||r.nombre).toLo
   const adv=['area','estado','desde','hasta'].filter(k=>F[k]).length;$('.f-more').textContent=adv?`Más filtros (${adv})`:'Más filtros';
   $('#btnXlsx').disabled=!rows.length}
 function renderPane(){
-  const showEmpty=!locked&&!data&&tab!=='actualizar';
+  const showEmpty=!locked&&!data&&!ADMIN_TABS.includes(tab);
   TABS.forEach(([id])=>{$('#p-'+id).hidden=locked||showEmpty||id!==tab});
   $('#p-vacio').hidden=!showEmpty;
   if(showEmpty){$('#vacio-t').textContent=admin?'Importa el primer reporte':'Todavía no hay datos publicados';
     $('#vacio-p').innerHTML=admin?'Ve a <a href="#actualizar">Actualizar</a> y sube el reporte de Coursebox.':'Cuando la Gerencia publique el reporte, aquí aparecerán las horas de capacitación.';return}
   if(locked)return;
   if(tab==='actualizar'){renderAdmin();return}
+  if(tab==='usuarios'){renderUsuarios();return}
   const rows=filtered();renderCtx(rows);syncHash();drills={};
   if(tab==='panorama')renderPanorama(rows);
   if(tab==='cursos')renderCursos(rows);
@@ -1244,12 +1253,9 @@ function renderDetalle(rows){
 /* ---------- administrador ---------- */
 function renderAdmin(){
   renderStage();
-  $('#pub-lead').textContent=!data?'Primero importa un reporte.':isDraft()?'Tienes cambios sin publicar. Sigue los cuatro pasos para que tus compañeros vean esta versión.':'Lo que ves ya está publicado. Vuelve aquí cuando importes un reporte nuevo o cambies duraciones.';
-  $('#pubBtn').disabled=$('#verBtn').disabled=!data;
-  $('#pw-choice').hidden=!pw;
-  const mode=pw?(document.querySelector('input[name=pwmode]:checked')||{}).value:'new';
-  $('#pw-new').hidden=mode==='keep';
-  $('#upLink').href=REPO+'/upload/main';
+  $('#pub-lead').textContent=!data?'Primero importa un reporte.':isDraft()?'Tienes cambios sin publicar. Al publicar, tus compañeros verán esta versión de inmediato.':`Lo que ves ya está publicado${pubData&&pubData._por?` (por ${pubData._por})`:''}. Vuelve aquí cuando importes un reporte nuevo o cambies duraciones.`;
+  $('#pubBtn').disabled=!data||!isDraft();
+  $('#old-card').hidden=!!pubData;
   const dr=loadDraft();$('#draft-lead').textContent=dr?`Hay un borrador guardado (${dr.cursos.length} cursos, ${fDate(dr.generado)}). Solo existe en este navegador hasta que lo publiques.`:'No hay borrador guardado en este navegador.';
   $('#rmDraft').disabled=!dr;
 }
@@ -1280,26 +1286,66 @@ function applyStage(){
     cursos:[...stage.cursos.map(c=>({...c,duracion:c.duracion===''||c.duracion==null?'':+c.duracion})),...keep]};
   stage=null;saveDraft();buildRows();toast('Reporte aplicado. Revisa los datos y publícalos cuando estén listos.');render()}
 const stepMsg=(id,t,tone)=>{const el=$(id);el.textContent=t;el.className='step-msg'+(tone?' '+tone:'')};
-async function doEncrypt(){
-  const keep=pw&&(document.querySelector('input[name=pwmode]:checked')||{}).value==='keep';
-  const p=keep?pw:$('#pubPw').value;
-  if(!keep){if(p.length<10){stepMsg('#st-2-msg','La contraseña debe tener al menos 10 caracteres.','bad');$('#pubPw').focus();return}
-    if(p!==$('#pubPw2').value){stepMsg('#st-2-msg','Las contraseñas no coinciden. Escríbelas de nuevo.','bad');$('#pubPw2').focus();return}
-    if(pw&&p!==pw&&!confirm('Vas a cambiar la contraseña. Tus compañeros necesitarán la nueva para entrar. ¿Continuar?'))return}
-  const btn=$('#pubBtn');btn.disabled=true;btn.textContent='Cifrando…';
-  try{const enc=await encrypt(data,p);lastEnc=enc.generado;
-    saveFile('datos.enc.json',new Blob([JSON.stringify(enc)],{type:'application/json'}));
-    stepMsg('#st-2-msg','Listo: datos.enc.json está en tu carpeta de descargas. Ahora súbelo a GitHub.','ok')}
-  catch(err){stepMsg('#st-2-msg','No se pudo cifrar: '+err.message,'bad')}
-  btn.disabled=false;btn.textContent='Descargar datos.enc.json'}
-async function doVerify(){
-  const btn=$('#verBtn');btn.disabled=true;btn.textContent='Verificando…';
-  try{const j=await fetchPub();
-    if(j&&j.generado===data.generado){pub=j;pubData=JSON.parse(JSON.stringify(data));store.del(LS_DRAFT);
-      stepMsg('#st-4-msg',`Publicado. Tus compañeros ya ven los datos del ${fDate(data.fecha||data.generado)}.`,'ok');renderChrome();renderAdmin()}
-    else stepMsg('#st-4-msg',j?'Todavía aparece la versión anterior. Si ya hiciste el commit, espera un minuto y vuelve a verificar.':'Aún no hay un archivo publicado en el sitio. Revisa que lo hayas subido con el nombre datos.enc.json.','warn')}
-  catch(e){stepMsg('#st-4-msg','No se pudo consultar el sitio. Revisa tu conexión y vuelve a intentar.','bad')}
-  btn.disabled=false;btn.textContent='Verificar publicación'}
+async function doPublish(){
+  const btn=$('#pubBtn');btn.disabled=true;btn.textContent='Publicando…';
+  const datos=JSON.parse(JSON.stringify(data));delete datos._por;
+  const {error}=await sb.from('reporte').upsert({id:1,datos,generado:datos.generado,actualizado:new Date().toISOString(),actualizado_por:me.email});
+  btn.textContent='Publicar';
+  if(error){stepMsg('#pub-msg','No se pudo publicar: '+error.message,'bad');btn.disabled=false;return}
+  pubData={...datos,_por:me.email};data=JSON.parse(JSON.stringify(pubData));store.del(LS_DRAFT);
+  stepMsg('#pub-msg',`Publicado. Tus compañeros ya ven los datos del ${fDate(data.fecha||data.generado)}.`,'ok');buildRows();render()}
+
+/* ---------- acceso por correo ---------- */
+function renderGate(){
+  const f=$('#gateForm'),m=$('#gateMsg');
+  f.hidden=gateMode!=='login';m.hidden=gateMode==='login';
+  if(gateMode==='sent')m.innerHTML=`<p><b>Revisa tu correo.</b> Enviamos un enlace de acceso a <b>${esc(gateInfo)}</b>. Ábrelo desde este equipo; si no llega en unos minutos, busca en correo no deseado.</p><button class="btn secondary" data-act="gate-back">Usar otro correo</button>`;
+  else if(gateMode==='denied')m.innerHTML=`<p><b>Tu correo ${esc(gateInfo)} no tiene acceso.</b> Pide a un administrador de la Gerencia de Operaciones Lado Aire que te agregue.</p><button class="btn secondary" data-act="lock">Usar otro correo</button>`;
+  else if(gateMode==='error')m.innerHTML=`<p><b>No se pudo entrar.</b> ${esc(gateInfo)}</p><button class="btn secondary" data-act="gate-back">Intentar de nuevo</button>`;
+  if(gateMode==='login')setTimeout(()=>{if(locked&&document.activeElement===document.body)$('#gateEmail').focus()},0)}
+async function afterAuth(session){
+  if(!session){me=null;admin=false;locked=true;data=pubData=null;ALL=[];if(gateMode!=='error'&&gateMode!=='sent')gateMode='login';render();return}
+  const email=(session.user.email||'').toLowerCase();
+  const {data:p,error}=await sb.from('perfiles').select('email,nombre,rol').eq('email',email).maybeSingle();
+  if(error||!p){me=null;admin=false;locked=true;gateMode=error?'error':'denied';gateInfo=error?error.message:email;render();return}
+  me=p;admin=p.rol==='admin';
+  const {data:row,error:e2}=await sb.from('reporte').select('datos,generado,actualizado_por').eq('id',1).maybeSingle();
+  if(e2)toast('No se pudo cargar el reporte: '+e2.message,true);
+  pubData=row?{...row.datos,_por:row.actualizado_por}:null;
+  const dr=admin?loadDraft():null;
+  data=dr&&(!pubData||dr.generado>pubData.generado)?dr:(pubData?JSON.parse(JSON.stringify(pubData)):null);
+  locked=false;gateMode='login';buildRows();
+  if(!visibleTabs().some(x=>x[0]===tab))tab='panorama';render()}
+
+/* ---------- usuarios ---------- */
+const ROL={admin:'Administrador',consulta:'Consulta'};
+async function loadUsers(){const {data:u,error}=await sb.from('perfiles').select('email,nombre,rol,creado,creado_por').order('rol').order('email');if(error){stepMsg('#u-msg','No se pudo cargar la lista: '+error.message,'bad');return}users=u||[];renderUsuarios()}
+function renderUsuarios(){
+  const box=$('#t-usuarios');if(!users.length){box.innerHTML='<p class="lead">Cargando usuarios…</p>';if(!renderUsuarios.loading){renderUsuarios.loading=true;loadUsers().finally(()=>renderUsuarios.loading=false)}return}
+  const na=users.filter(u=>u.rol==='admin').length;
+  box.innerHTML=`<div class="list-head"><p class="count">${pl(users.length,'usuario','usuarios')} · ${pl(na,'administrador','administradores')}</p></div><div class="ulist">`+users.map(u=>{const mine=u.email===me.email,last=u.rol==='admin'&&na===1;
+    return `<div class="urow"><span class="av" aria-hidden="true">${esc(initials(u.nombre||u.email))}</span><span class="pinfo"><b>${esc(u.nombre||u.email.split('@')[0])}${mine?' <span class="badge new">Tú</span>':''}</b><small>${esc(u.email)}${u.creado_por?` · agregado por ${esc(u.creado_por)}`:''}</small></span>
+      <label class="urol"><span class="sr">Perfil de ${esc(u.email)}</span><select data-urol="${esc(u.email)}"${last?' disabled title="Debe quedar al menos un administrador"':''}><option value="consulta"${u.rol==='consulta'?' selected':''}>Consulta</option><option value="admin"${u.rol==='admin'?' selected':''}>Administrador</option></select></label>
+      <button class="btn danger s" data-act="rm-user" data-e="${esc(u.email)}" data-confirm="¿Quitar?"${last?' disabled':''}>Quitar</button></div>`}).join('')+'</div>'}
+function nameFor(email){const r=ALL.find(x=>(x.email||'').toLowerCase()===email);return r?r.nombre:''}
+async function addUser(){
+  const email=$('#uEmail').value.trim().toLowerCase(),rol=$('#uRol').value;let nombre=$('#uNombre').value.trim()||nameFor(email);
+  if(!email.endsWith(DOMAIN)){stepMsg('#u-msg','Solo se pueden agregar correos '+DOMAIN+'.','bad');$('#uEmail').focus();return}
+  const btn=$('#uBtn');btn.disabled=true;
+  const {error}=await sb.from('perfiles').insert({email,nombre:nombre||null,rol,creado_por:me.email});btn.disabled=false;
+  if(error){stepMsg('#u-msg',error.code==='23505'?'Ese correo ya está en la lista.':'No se pudo agregar: '+error.message,'bad');return}
+  stepMsg('#u-msg',`${email} agregado como ${ROL[rol]}. Ya puede entrar con su correo.`,'ok');$('#userForm').reset();await loadUsers()}
+async function setRol(email,rol){
+  if(email===me.email&&rol!=='admin'&&!confirm('Vas a quitarte el perfil de administrador. Ya no podrás actualizar datos ni administrar usuarios. ¿Continuar?')){renderUsuarios();return}
+  const {error}=await sb.from('perfiles').update({rol}).eq('email',email);
+  if(error){stepMsg('#u-msg','No se pudo cambiar el perfil: '+error.message,'bad');renderUsuarios();return}
+  stepMsg('#u-msg',`${email} ahora es ${ROL[rol]}.`,'ok');
+  if(email===me.email){const {data:{session}}=await sb.auth.getSession();await afterAuth(session);return}
+  await loadUsers()}
+async function rmUser(email){
+  const {error}=await sb.from('perfiles').delete().eq('email',email);
+  if(error){stepMsg('#u-msg','No se pudo quitar: '+error.message,'bad');return}
+  stepMsg('#u-msg',`${email} ya no tiene acceso.`,'ok');await loadUsers()}
 
 /* ---------- enlaces compartibles: #pestaña?filtro=valor ---------- */
 function syncHash(){const p=new URLSearchParams();Object.entries(F).forEach(([k,v])=>{if(v)p.set(k,v)});const q=p.toString(),h='#'+tab+(q?'?'+q:'');
@@ -1338,7 +1384,9 @@ document.addEventListener('click',async e=>{
   const a=b.dataset.act;
   if(a==='more'){lim[b.dataset.t]+=300;b.dataset.t==='panel'?renderDrawer():rerender()}
   else if(a==='close-dr')closeDrill();
-  else if(a==='pw-eye'){const i=$('#gatePw'),show=i.type==='password';i.type=show?'text':'password';b.textContent=show?'Ocultar':'Mostrar';b.setAttribute('aria-pressed',show);i.focus()}
+  else if(a==='gate-back'){gateMode='login';renderGate();$('#gateEmail').focus()}
+  else if(a==='publish')doPublish();
+  else if(a==='rm-user')rmUser(b.dataset.e);
   else if(a==='set-estado'){F.estado=b.dataset.k;resetLim();fillFilters();rerender()}
   else if(a==='dr-xlsx')drillXlsx();
   else if(a==='dr-open'){const f=drCur&&drCur.fil;if(f){const toCurso=drCur.mode==='curso';Object.assign(F,f);resetLim();closeDrill();tab=toCurso?'panorama':'detalle';render();window.scrollTo(0,0)}}
@@ -1350,12 +1398,9 @@ document.addEventListener('click',async e=>{
   else if(a==='skip'){const t=$('main .pane:not([hidden]) h2, main .pane:not([hidden]) .card');if(t){t.tabIndex=-1;t.focus()}}
   else if(a==='xlsx')doXlsx();
   else if(a==='apply')applyStage();
-  else if(a==='encrypt')doEncrypt();
-  else if(a==='verify')doVerify();
   else if(a==='clear-stage'){stage=null;renderStage()}
-  else if(a==='lock'){pw='';sess.del(PW_KEY);store.del(PW_KEY);data=null;pubData=null;locked=true;ALL=[];render()}
+  else if(a==='lock'){gateMode='login';await sb.auth.signOut();await afterAuth(null)}
   else if(a==='rm-draft'){store.del(LS_DRAFT);data=pubData?JSON.parse(JSON.stringify(pubData)):null;buildRows();toast('Borrador descartado.');render()}
-  else if(a==='admin-off'){admin=false;store.del(LS_ADMIN);if(pubData){data=JSON.parse(JSON.stringify(pubData));buildRows()}location.hash='panorama'}
 });
 const fmap={'f-q':'q','f-curso':'curso','f-area':'area','f-estado':'estado','f-desde':'desde','f-hasta':'hasta'};
 let qT;
@@ -1366,7 +1411,7 @@ document.addEventListener('change',e=>{const t=e.target;
   if(t.id==='file'){const f=t.files[0];t.value='';addFile(f)}
   else if(fmap[t.id]&&t.id!=='f-q'){F[fmap[t.id]]=t.value;resetLim();rerender()}
   else if(t.dataset.msort){const [k,d]=t.value.split(':');sorts[t.dataset.msort]={k,d};t.dataset.msort==='panel'?renderDrawer():rerender()}
-  else if(t.name==='pwmode')renderAdmin();
+  else if(t.dataset.urol)setRol(t.dataset.urol,t.value);
   else if(t.matches('input.dur-in')){const v=t.value===''?'':parseFloat(t.value),c=data.cursos.find(c=>c.id===t.dataset.cid);if(!c||(v!==''&&(!isFinite(v)||v<0))){rerender();return}
     c.duracion=v;data.generado=new Date().toISOString();saveDraft();buildRows();render();toast('Duración actualizada. Publica para que tus compañeros la vean.')}});
 const drop=$('#drop');
@@ -1374,27 +1419,37 @@ const drop=$('#drop');
 ['dragleave','drop'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>{addFile([...e.dataTransfer.files].find(f=>/\.csv$/i.test(f.name)))});
 
-$('#gateForm').addEventListener('submit',async e=>{e.preventDefault();const inp=$('#gatePw'),p=inp.value,btn=$('#gateBtn');btn.disabled=true;$('#gateErr').textContent='';inp.removeAttribute('aria-invalid');btn.textContent='Abriendo…';
-  try{await unlock(p);if($('#gateRemember').checked)store.set(PW_KEY,p);else sess.set(PW_KEY,p);inp.value='';const h=tab==='panorama'?$('#big-v'):$('main .pane:not([hidden]) .page-title h2');if(h){if(!h.matches('button'))h.tabIndex=-1;h.focus({preventScroll:true})}}
-  catch(err){$('#gateErr').textContent='Contraseña incorrecta. Revisa mayúsculas y espacios; si la cambiaron, pide la vigente a la Gerencia de Operaciones Lado Aire.';inp.setAttribute('aria-invalid','true');inp.select()}
-  btn.disabled=false;btn.textContent='Entrar'});
+$('#gateForm').addEventListener('submit',async e=>{e.preventDefault();const inp=$('#gateEmail'),email=inp.value.trim().toLowerCase(),btn=$('#gateBtn');
+  $('#gateErr').textContent='';inp.removeAttribute('aria-invalid');
+  if(!email.endsWith(DOMAIN)){$('#gateErr').textContent='Usa tu correo '+DOMAIN+'.';inp.setAttribute('aria-invalid','true');inp.focus();return}
+  btn.disabled=true;btn.textContent='Enviando…';
+  const {error}=await sb.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname,shouldCreateUser:true}});
+  btn.disabled=false;btn.textContent='Enviarme el enlace de acceso';
+  if(error){const m=/autoriz|not allowed|hook|403/i.test(error.message)?'Este correo no está autorizado. Pide acceso a un administrador.':/rate|seconds|too many/i.test(error.message)?'Se enviaron demasiados correos. Espera unos minutos e inténtalo de nuevo.':error.message;
+    $('#gateErr').textContent=m;inp.setAttribute('aria-invalid','true');return}
+  gateMode='sent';gateInfo=email;renderGate()});
+$('#userForm').addEventListener('submit',e=>{e.preventDefault();addUser()});
+$('#oldForm').addEventListener('submit',async e=>{e.preventDefault();const p=$('#oldPw').value;stepMsg('#old-msg','Recuperando…');
+  try{const enc=await fetchOld();if(!enc){stepMsg('#old-msg','No hay datos anteriores en el sitio.','warn');return}
+    const old=await decrypt(enc,p);old.generado=new Date().toISOString();data=old;saveDraft();buildRows();$('#oldPw').value='';
+    stepMsg('#old-msg',`Listo: se recuperaron ${pl(old.cursos.length,'curso','cursos')} con sus duraciones. Revisa y pulsa Publicar.`,'ok');render()}
+  catch(err){stepMsg('#old-msg','Contraseña incorrecta o archivo dañado.','bad')}});
 
-async function unlock(p){pubData=await decrypt(pub,p);pw=p;locked=false;
-  const dr=admin?loadDraft():null;data=dr&&dr.generado>pubData.generado?dr:JSON.parse(JSON.stringify(pubData));
-  buildRows();render()}
-function route(){const t=readHash();if(t==='actualizar'&&!admin){admin=true;store.set(LS_ADMIN,'1')}
-  tab=visibleTabs().some(x=>x[0]===t)?t:'panorama';render()}
+function route(){const t=readHash();tab=visibleTabs().some(x=>x[0]===t)?t:'panorama';if(tab==='usuarios')users=[];render()}
 window.addEventListener('hashchange',route);
 
 /* ---------- arranque ---------- */
 (async()=>{
-  admin=store.get(LS_ADMIN)==='1';
-  const t0=readHash();tab=visibleTabs().some(x=>x[0]===t0)?t0:'panorama';   // antes de descifrar, para no pisar el enlace recibido
-  try{pub=await fetchPub()}catch(e){}
-  if(pub){locked=true;const saved=sess.get(PW_KEY)||store.get(PW_KEY);
-    if(saved){try{await unlock(saved)}catch(e){store.del(PW_KEY);sess.del(PW_KEY)}}}
-  else{data=admin?loadDraft():null;buildRows()}
+  const h0=location.hash,urlErr=/error_description=([^&]+)/.exec(h0);
+  sb=supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:'implicit',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
+  const {data:{session}}=await sb.auth.getSession();
+  // el enlace del correo llega con #access_token=… o #error=…; se limpia antes de leer la pestaña
+  if(/access_token|error_description|error=/.test(location.hash))history.replaceState(null,'',location.pathname+location.search);
+  if(urlErr&&!session){gateMode='error';gateInfo=decodeURIComponent(urlErr[1].replace(/\+/g,' '))+'. Pide un enlace nuevo.'}
+  const t0=readHash();tab=t0||'panorama';
+  await afterAuth(session);
   route();
+  sb.auth.onAuthStateChange((ev,s2)=>{if(ev==='SIGNED_OUT'&&me)afterAuth(null);else if(ev==='SIGNED_IN'&&!me&&s2)afterAuth(s2)});
 })();
 })();
 </script>

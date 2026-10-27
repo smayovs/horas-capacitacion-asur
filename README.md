@@ -2,8 +2,8 @@
 
 Consulta de horas de capacitación a partir del reporte de todos los cursos de Coursebox.
 
-- **Consultar:** abre el sitio y escribe la contraseña que te compartieron.
-- **Actualizar (administrador):** abre https://smayovs.github.io/horas-capacitacion-asur/#actualizar (el enlace no aparece en la página para no confundir a los compañeros). Importa el CSV `all-courses_report_*.csv`, revisa las duraciones y sigue los cuatro pasos de “Publicar”: contraseña, descargar `datos.enc.json`, subirlo aquí y verificar.
-- **Compartir una vista:** los filtros quedan en la dirección (por ejemplo `#cursos?area=CREI`), así que puedes copiar y enviar el enlace.
+- **Entrar:** abre el sitio, escribe tu correo @asur.com.mx y abre el enlace que llega a tu correo. Solo entran las personas que un administrador haya agregado.
+- **Actualizar (administradores):** pestaña Actualizar → sube el CSV `all-courses_report_*.csv` → revisa las duraciones → Publicar. Funciona desde cualquier equipo; no hace falta GitHub.
+- **Usuarios (administradores):** agrega o quita correos y elige el perfil Consulta o Administrador. Siempre queda al menos un administrador.
 
-Los datos se publican cifrados (AES-256-GCM, clave derivada con PBKDF2-SHA256, 310 000 iteraciones). Nunca subas aquí el CSV ni el Excel: el repositorio es público.
+Los datos y los usuarios viven en Supabase (proyecto `aepiqogklpqkfjicwqlx`). El esquema y los permisos están en `supabase/esquema.sql`; la clave que aparece en la página es la publicable, pública por diseño. Nunca subas aquí el CSV, el Excel ni la clave secreta.
