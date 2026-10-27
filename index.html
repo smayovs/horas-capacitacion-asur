@@ -1,0 +1,798 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><title>Horas de Capacitación</title></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Rubik:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: barra plana con pestañas; columna de 1200px; un campo azul marino plano para las cifras globales.
+   Superficies separadas por tono, sin sombras ni líneas; esquinas rectas; tipos y colores de marca ASUR/GOLA. */
+:root{
+  --asur-navy-900:#02305e;--asur-navy-800:#02458d;--asur-navy-700:#0a54a3;
+  --asur-teal-700:#006d78;--asur-teal-600:#008c9a;--asur-teal-400:#5cc4cc;
+  --surface-page:#eef2f6;--surface-card:#ffffff;--surface-sunken:#e4eaf1;--surface-hover:#f3f6f9;--surface-inverse:#02305e;
+  --field:#02458d;--field-ink:#ffffff;--field-soft:#b9d3ee;
+  --border-default:#dbe2ea;--border-strong:#9aa8b9;
+  --text-primary:#0f1620;--text-secondary:#3d4858;--text-muted:#5b6778;--text-on-primary:#ffffff;
+  --ink-link:#02458d;--ink-teal:#006d78;
+  --btn-primary:#02458d;--btn-primary-hover:#02305e;
+  --focus-ring:#0180bd;--logo-navy:#02458d;--logo-teal:#008c9a;
+  --success-fg:#17733f;--success-bg:#dcf1e4;--warning-fg:#8a5206;--warning-bg:#f8e7c9;--danger-fg:#b8302a;--danger-bg:#f9e0dd;--info-bg:#dde9f7;
+  --heat:#008c9a;--bar:#008c9a;
+  --font-display:'Rubik',system-ui,sans-serif;--font-body:'Montserrat',system-ui,sans-serif;
+  --radius:2px;
+  --shadow-float:0 10px 30px rgba(2,30,60,.22);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --surface-page:#0b121b;--surface-card:#131d29;--surface-sunken:#1b2735;--surface-hover:#172230;--surface-inverse:#02305e;
+  --field:#02305e;--field-ink:#ffffff;--field-soft:#9fc0e4;
+  --border-default:#223142;--border-strong:#4a5d74;
+  --text-primary:#eaf0f7;--text-secondary:#b3c0d0;--text-muted:#93a3b6;
+  --ink-link:#7db8f2;--ink-teal:#5cc4cc;--btn-primary:#1d6fc9;--btn-primary-hover:#2b80de;
+  --success-fg:#5fd093;--success-bg:#12301f;--warning-fg:#eaa845;--warning-bg:#36280f;--danger-fg:#f2867c;--danger-bg:#3a1a17;--info-bg:#152c47;
+  --heat:#1ba7b3;--bar:#1ba7b3;--logo-navy:#fff;--logo-teal:#fff;--shadow-float:0 10px 30px rgba(0,0,0,.5);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --surface-page:#0b121b;--surface-card:#131d29;--surface-sunken:#1b2735;--surface-hover:#172230;--surface-inverse:#02305e;
+  --field:#02305e;--field-ink:#ffffff;--field-soft:#9fc0e4;
+  --border-default:#223142;--border-strong:#4a5d74;
+  --text-primary:#eaf0f7;--text-secondary:#b3c0d0;--text-muted:#93a3b6;
+  --ink-link:#7db8f2;--ink-teal:#5cc4cc;--btn-primary:#1d6fc9;--btn-primary-hover:#2b80de;
+  --success-fg:#5fd093;--success-bg:#12301f;--warning-fg:#eaa845;--warning-bg:#36280f;--danger-fg:#f2867c;--danger-bg:#3a1a17;--info-bg:#152c47;
+  --heat:#1ba7b3;--bar:#1ba7b3;--logo-navy:#fff;--logo-teal:#fff;--shadow-float:0 10px 30px rgba(0,0,0,.5);color-scheme:dark}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:140px}
+body{margin:0;background:var(--surface-page);color:var(--text-primary);font:400 1rem/1.55 var(--font-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface-card)}
+h1,h2,h3{font-family:var(--font-display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+button,input,select{font:inherit;color:inherit}
+.in{max-width:1200px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+@media (max-width:560px){.in{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+
+/* encabezado: barra plana, el tono la separa de la página */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface-card)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px 8px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:20px;min-width:0}
+.logos{display:flex;align-items:center;gap:18px;flex:none}
+.logos svg{height:40px;width:auto;display:block}
+.logos .sep{width:3px;height:30px;background:var(--surface-sunken)}
+.logos .a{fill:var(--logo-navy)}.logos .b{fill:var(--logo-teal)}
+@media (max-width:520px){.logos svg{height:30px}.logos{gap:12px}}
+.app-name{font:600 1.25rem/1.2 var(--font-display);letter-spacing:-.015em}
+.app-sub{font:500 .8125rem/1.4 var(--font-body);color:var(--text-muted)}
+@media (max-width:640px){.brand{flex-wrap:wrap;gap:8px}.app-sub{display:none}.app-name{font-size:1.0625rem}.top-row{padding-block:12px 4px;gap:8px}.top-actions{gap:4px}.top-actions .btn{padding:6px 10px;font-size:.8125rem}}
+.top-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-inline:-12px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{position:relative;display:inline-flex;align-items:baseline;gap:8px;padding:12px 12px 14px;white-space:nowrap;text-decoration:none;font:600 .9375rem/1.2 var(--font-body);color:var(--text-secondary);transition:color .15s cubic-bezier(.2,.7,.3,1)}
+.tabs a::after{content:"";position:absolute;left:12px;right:12px;bottom:0;height:3px;background:var(--ink-link);transform:scaleX(0);transform-origin:left;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.tabs a:hover{color:var(--text-primary)}
+.tabs a[aria-current="page"]{color:var(--ink-link)}
+.tabs a[aria-current="page"]::after{transform:scaleX(1)}
+.tabs .n{font:500 .8125rem/1 var(--font-body);color:var(--text-muted);font-variant-numeric:tabular-nums}
+.tabs a[aria-current="page"] .n{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,.drop:focus-within{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+main{padding-block:32px 96px;display:flex;flex-direction:column;gap:24px}
+[hidden],.pane[hidden]{display:none!important}
+.pane{display:flex;flex-direction:column;gap:24px}
+
+/* superficies */
+.card{background:var(--surface-card);border-radius:var(--radius);padding:32px;min-width:0}
+.card.flat{background:var(--surface-sunken)}
+@media (max-width:560px){.card{padding:20px}}
+.card h2{font:600 clamp(1.5rem,2.4vw,2rem)/1.15 var(--font-display)}
+.card h3{font:600 1.25rem/1.25 var(--font-display)}
+.lead{color:var(--text-secondary);font-size:.9375rem;line-height:1.55;margin:8px 0 0;max-width:68ch}
+.label{font:600 .875rem/1.3 var(--font-body);color:var(--text-secondary)}
+
+/* botones: rectos, un relleno */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 20px;border-radius:var(--radius);border:0;font:600 .875rem/1.2 var(--font-body);cursor:pointer;background:var(--btn-primary);color:#fff;transition:background .15s cubic-bezier(.2,.7,.3,1),transform .12s cubic-bezier(.2,.7,.3,1);white-space:nowrap}
+.btn:hover{background:var(--btn-primary-hover)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn.secondary{background:var(--surface-sunken);color:var(--ink-link)}
+.btn.secondary:hover{background:var(--info-bg)}
+.btn.ghost{background:transparent;color:var(--ink-link)}
+.btn.ghost:hover{background:var(--surface-sunken)}
+.btn.danger{background:var(--danger-bg);color:var(--danger-fg)}
+.btn.danger:hover{background:color-mix(in srgb,var(--danger-bg) 70%,var(--danger-fg))}
+.btn.danger.armed{background:var(--danger-fg);color:#fff}
+.btn.s{padding:7px 12px;font-size:.8125rem}
+.top-actions .btn.secondary{background:transparent}
+.top-actions .btn.secondary:hover{background:var(--surface-sunken)}
+
+/* etiquetas de estado: texto en frase, bloque de tono */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:var(--radius);font:600 .8125rem/1.4 var(--font-body);background:var(--surface-sunken);color:var(--text-secondary);white-space:nowrap}
+.badge.ok{background:var(--success-bg);color:var(--success-fg)}
+.badge.warn{background:var(--warning-bg);color:var(--warning-fg)}
+.badge.bad{background:var(--danger-bg);color:var(--danger-fg)}
+.badge.info{background:var(--info-bg);color:var(--ink-link)}
+#sync{background:transparent;padding-inline:0}
+#sync::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+input[type=text],input[type=search],input[type=number],select{background:var(--surface-card);border:1px solid var(--border-strong);border-radius:var(--radius);padding:10px 12px;font:400 .9375rem/1.4 var(--font-body);min-width:0}
+input::placeholder{color:var(--text-muted)}
+
+/* cifras globales: un campo de color plano */
+.hero{background:var(--field);color:var(--field-ink);border-radius:var(--radius);padding:40px;display:grid;grid-template-columns:minmax(0,2.2fr) repeat(3,minmax(0,1fr));gap:32px;align-items:end}
+.hero>div{min-width:0}
+.hero .k{font:500 .9375rem/1.35 var(--font-body);color:var(--field-soft)}
+.hero .v{font:600 clamp(3.25rem,8vw,6.5rem)/.92 var(--font-display);letter-spacing:-.045em;font-variant-numeric:tabular-nums;margin-top:12px}
+.hero .v.s{font-size:clamp(2rem,3.6vw,3rem);letter-spacing:-.03em;line-height:1}
+.hero .u{font:500 .9375rem/1.4 var(--font-body);color:var(--field-soft);margin-top:12px}
+@media (max-width:760px){.hero{grid-template-columns:repeat(3,minmax(0,1fr));padding:24px;gap:24px 16px}.hero>div:first-child{grid-column:1/-1}}
+
+/* importar */
+.drop{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:40px 32px;border-radius:var(--radius);background:var(--surface-sunken);cursor:pointer;margin-top:24px;transition:background .15s cubic-bezier(.2,.7,.3,1)}
+.drop::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ink-link);transform:scaleY(.0);transform-origin:top;transition:transform .2s cubic-bezier(.2,.7,.3,1)}
+.drop:hover,.drop.over{background:var(--info-bg)}
+.drop:hover::before,.drop.over::before{transform:scaleY(1)}
+.drop strong{font:600 1.375rem/1.25 var(--font-display);letter-spacing:-.015em;color:var(--ink-link)}
+.drop span{color:var(--text-secondary);font-size:.9375rem}
+.drop input{position:absolute;opacity:0;width:1px;height:1px}
+@media (max-width:560px){.drop{padding:28px 20px}}
+.stage{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.si{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:20px;align-items:center;padding:16px 20px;background:var(--surface-hover);border-radius:var(--radius)}
+.si.err{background:var(--danger-bg)}
+.si .nm{font:600 1.0625rem/1.35 var(--font-display);overflow-wrap:anywhere}
+.si .meta{font-size:.8125rem;color:var(--text-secondary);display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.dur{display:flex;flex-direction:column;gap:4px}
+.dur input{width:110px}
+.est{font:600 1.375rem/1.1 var(--font-display);font-variant-numeric:tabular-nums;text-align:right;min-width:100px;color:var(--ink-teal)}
+.est small{display:block;font:500 .8125rem/1.4 var(--font-body);color:var(--text-muted)}
+@media (max-width:760px){.si{grid-template-columns:1fr 1fr}.si>div:first-child{grid-column:1/-1}.est{text-align:left}}
+.row-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.steps div{font-size:.875rem;color:var(--text-secondary);line-height:1.5}
+.steps b{display:block;font:600 .9375rem/1.3 var(--font-display);color:var(--text-primary);margin-bottom:2px}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+.formula{margin-top:20px;padding:16px 20px;border-radius:var(--radius);background:var(--info-bg);font-size:.9375rem;line-height:1.55}
+.formula b{color:var(--ink-link)}
+
+/* tablas */
+.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+.bar .grow{flex:1 1 220px;min-width:0}
+.bar .grow input{width:100%}
+.bar .count{color:var(--text-muted);font-size:.875rem;font-variant-numeric:tabular-nums}
+.tw{overflow-x:auto;border-radius:var(--radius);max-width:100%}
+table{border-collapse:separate;border-spacing:0;width:100%;font-size:.875rem}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--border-default);vertical-align:middle}
+thead th{background:var(--surface-sunken);color:var(--text-primary);font:600 .8125rem/1.3 var(--font-body);position:sticky;top:0;z-index:1;white-space:nowrap;padding:0;border-bottom:0}
+thead th .sort{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:6px;width:100%;padding:12px 14px;cursor:pointer;transition:color .15s}
+thead th .sort:hover{color:var(--ink-link)}
+thead th .sort:focus-visible{outline:3px solid var(--focus-ring);outline-offset:-3px}
+thead th[aria-sort="ascending"] .sort,thead th[aria-sort="descending"] .sort{color:var(--ink-link)}
+thead th.num .sort{justify-content:flex-end}
+.arr{opacity:.55;font-size:.7rem}
+tbody tr{transition:background .12s}
+tbody tr:hover td{background:var(--surface-hover)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td.wrap{min-width:220px;overflow-wrap:anywhere}
+tfoot td{font-weight:700;background:var(--surface-sunken);border-bottom:none}
+.hrs{font-weight:700;color:var(--ink-teal)}
+.pct{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.pct i{display:block;width:64px;height:6px;background:var(--surface-sunken);overflow:hidden;flex:none}
+.pct i b{display:block;height:100%;background:var(--bar)}
+td input.dur-in{width:90px;text-align:right;padding:6px 8px}
+.more{display:flex;justify-content:center;margin-top:16px}
+.empty{padding:48px 0 24px;color:var(--text-secondary);max-width:52ch}
+.empty h3{color:var(--text-primary);font-size:1.5rem;margin-bottom:8px}
+.empty .btn{margin-top:20px}
+.pv td.c{background:color-mix(in srgb,var(--heat) var(--t,0%),transparent)}
+.pv th:first-child,.pv td:first-child{position:sticky;left:0;background:var(--surface-card);z-index:2}
+.pv thead th:first-child{background:var(--surface-sunken);z-index:3}
+.pv tfoot td:first-child{background:var(--surface-sunken)}
+.pv thead th{white-space:normal;min-width:130px;vertical-align:bottom}
+.pv thead th .sort{cursor:default}
+.pv thead th .sort:hover{color:inherit}
+.pv thead th:first-child{min-width:120px}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;pointer-events:none;background:var(--surface-inverse);color:#fff;padding:14px 20px;border-radius:var(--radius);box-shadow:var(--shadow-float);font-size:.9375rem;max-width:min(92vw,560px);z-index:40;transition:opacity .2s cubic-bezier(.2,.7,.3,1),transform .2s cubic-bezier(.2,.7,.3,1)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.bad{background:var(--danger-fg)}
+
+/* indicadores */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:20px}
+.kpi{background:var(--surface-hover);border-radius:var(--radius);padding:20px;min-width:0}
+.kpi .k{font:600 .875rem/1.35 var(--font-body);color:var(--text-secondary)}
+.kpi .v{font:600 2.5rem/1 var(--font-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin:12px 0 8px;color:var(--ink-link)}
+.kpi small{display:block;color:var(--text-muted);font-size:.8125rem;line-height:1.45}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:860px){.grid2{grid-template-columns:1fr}}
+.hb{display:grid;grid-template-columns:minmax(110px,260px) 1fr auto;gap:14px;align-items:center;font-size:.875rem;margin:12px 0}
+.hb .l{overflow-wrap:anywhere}
+.hb .t{height:14px;background:var(--surface-sunken);overflow:hidden}
+.hb .t b{display:block;height:100%;background:var(--bar);transform-origin:left;animation:grow .6s cubic-bezier(.2,.7,.3,1) both}
+.hb.bad .t b{background:var(--danger-fg)}
+.hb .v{font-variant-numeric:tabular-nums;font-weight:600;min-width:84px;text-align:right}
+@media (max-width:560px){.hb{grid-template-columns:1fr auto}.hb .t{grid-column:1/-1;order:3}}
+.card .grid2>.card,.grid2 .card{min-width:0}
+.sub{margin:28px 0 4px}
+.note{margin-top:14px;font-size:.875rem;color:var(--text-muted)}
+
+
+/* acceso con contraseña */
+.gate{display:flex;justify-content:center;padding-block:8vh}
+.gate-card{width:min(100%,520px);display:flex;flex-direction:column;gap:20px}
+.gate-card .lead{margin:0}
+.gate-card .row-actions{margin-top:0}
+.gate-err{color:var(--danger-fg);font-weight:600;font-size:.9375rem}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld input,.fld select{width:100%}
+.check{display:flex;align-items:center;gap:10px;font-size:.9375rem;color:var(--text-secondary);cursor:pointer}
+.check input{width:18px;height:18px;accent-color:var(--btn-primary);flex:none}
+
+/* filtros compartidos por todas las vistas */
+.filters{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,2fr) repeat(4,minmax(0,1fr));gap:12px 16px;align-items:end;background:var(--surface-card);padding:20px 24px;border-radius:var(--radius)}
+.f-sum{grid-column:1/-1;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.9375rem;color:var(--text-secondary);font-variant-numeric:tabular-nums}
+.f-sum span{font-weight:600;color:var(--text-primary)}
+@media (max-width:1100px){.filters{grid-template-columns:repeat(4,minmax(0,1fr))}.f-q,.f-curso{grid-column:span 2}}
+@media (max-width:640px){.filters{grid-template-columns:1fr 1fr;padding:16px}.f-q,.f-curso{grid-column:1/-1}}
+
+.t-gap{margin-top:20px}
+.count{margin:0 0 12px;color:var(--text-muted);font-size:.875rem;font-variant-numeric:tabular-nums}
+.muted{color:var(--text-muted)}
+.link{all:unset;cursor:pointer;color:var(--ink-link);font-weight:600;text-align:left;transition:color .15s}
+.link:hover{text-decoration:underline;text-underline-offset:3px}
+.link.on{color:var(--ink-teal)}
+.link:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+
+/* detalle de curso */
+.det{background:var(--surface-card)}
+.det-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.det-grid{margin-top:24px;gap:40px}
+.det-grid h3{margin-bottom:4px}
+.det-grid .sub:first-child{margin-top:0}
+.qline{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:.9375rem;color:var(--text-secondary);margin:6px 0 4px}
+.qline b{font:600 1.125rem/1.2 var(--font-display);color:var(--text-primary);font-variant-numeric:tabular-nums}
+
+/* actualizar */
+.stage-lead{margin-top:20px}
+.drop-miss{margin-top:16px;align-items:flex-start}
+.pub{display:grid;grid-template-columns:1fr 1fr auto;gap:16px;align-items:end;margin-top:20px}
+@media (max-width:760px){.pub{grid-template-columns:1fr}}
+code{font-size:.875em;background:color-mix(in srgb,var(--ink-link) 10%,transparent);padding:1px 5px;border-radius:var(--radius)}
+.formula a,.empty a{color:var(--ink-link);font-weight:600}
+
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:0 48px;margin-top:-56px;font-size:.875rem;color:var(--text-muted)}
+.foot a{color:var(--text-muted)}
+.foot a:hover{color:var(--ink-link)}
+
+/* movimiento: entradas cortas al cambiar de pestaña */
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pane:not([hidden])>*{animation:rise .4s cubic-bezier(.2,.7,.3,1) both}
+.pane:not([hidden])>*:nth-child(2){animation-delay:.06s}
+.pane:not([hidden])>*:nth-child(3){animation-delay:.12s}
+#ind-body>*{animation:rise .4s cubic-bezier(.2,.7,.3,1) both}
+#ind-body>*:nth-child(2){animation-delay:.06s}
+#ind-body>*:nth-child(3){animation-delay:.12s}
+#ind-body>*:nth-child(n+4){animation-delay:.18s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+</style>
+
+<header class="top">
+  <div class="in">
+    <div class="top-row">
+      <div class="brand">
+        <span class="logos"><svg role="img" aria-label="Aeropuerto Internacional de Cancún" viewBox="144.4 368.2 2817.3 1138.6" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(2.46567,0,0,4.16667,0,0)">
+        
+        <g transform="matrix(1.68987,0,0,1,0,0)">
+            <g transform="matrix(1,0,0,1,617.094,355.328)">
+                <path d="M0,-71.137C-1.39,-68.01 -2.715,-65.028 -4.042,-62.046C-8.898,-51.13 -13.694,-40.187 -18.626,-29.305C-25.407,-14.344 -36.972,-5.248 -52.973,-1.779C-60.784,-0.085 -68.671,0.116 -76.566,-1.128C-80.034,-1.674 -83.364,-2.725 -86.34,-4.682C-91.253,-7.914 -92.99,-12.61 -92.58,-18.282C-92.221,-23.249 -90.37,-27.766 -88.375,-32.246C-82.781,-44.804 -77.198,-57.367 -71.65,-69.945C-71.213,-70.937 -70.687,-71.253 -69.602,-71.246C-61.24,-71.192 -52.878,-71.215 -44.516,-71.214L-43.235,-71.214C-43.977,-69.518 -44.646,-67.98 -45.322,-66.445C-50.495,-54.706 -55.69,-42.977 -60.817,-31.219C-61.529,-29.584 -62.127,-27.837 -62.389,-26.083C-62.76,-23.603 -61.557,-22.411 -58.846,-22.082C-53.742,-21.465 -49.75,-23.323 -47.343,-27.906C-45.244,-31.903 -43.487,-36.08 -41.636,-40.204C-37.15,-50.197 -32.696,-60.205 -28.238,-70.211C-27.973,-70.805 -27.746,-71.241 -26.922,-71.238C-18.192,-71.201 -9.461,-71.214 -0.731,-71.21C-0.551,-71.21 -0.37,-71.175 0,-71.137" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,651.364,330.148)">
+                <path d="M0,-22.195C-1.172,-18.496 -3.691,-16.214 -7.506,-15.583C-9.66,-15.227 -11.872,-15.222 -14.318,-15.039C-13.625,-16.63 -13.062,-17.93 -12.493,-19.228C-11.507,-21.48 -10.486,-23.717 -9.546,-25.988C-9.213,-26.792 -8.767,-27.096 -7.896,-27.006C-6.076,-26.82 -4.212,-26.891 -2.429,-26.538C-0.004,-26.058 0.75,-24.56 0,-22.195M25.286,-40.946C21.442,-44.414 16.746,-45.892 11.698,-45.943C-1.229,-46.073 -14.159,-46.001 -27.088,-46.043C-27.893,-46.045 -28.139,-45.66 -28.412,-45.038C-37.856,-23.491 -47.315,-1.95 -56.771,19.593C-57.373,20.964 -57.966,22.339 -58.604,23.805C-58.215,23.825 -57.969,23.849 -57.723,23.849C-49.324,23.85 -40.926,23.832 -32.527,23.873C-31.634,23.878 -31.247,23.568 -30.904,22.8C-27.893,16.053 -24.845,9.322 -21.805,2.588C-21.665,2.279 -21.492,1.984 -21.335,1.683C-21.267,1.7 -21.2,1.718 -21.132,1.736C-20.282,9.087 -19.433,16.439 -18.583,23.794L13.574,23.794C13.475,23.408 13.405,23.088 13.31,22.775C11.459,16.735 9.653,10.68 7.732,4.662C6.828,1.831 6.524,-1.273 4.16,-3.628C5.002,-3.814 5.649,-3.944 6.289,-4.104C6.966,-4.272 7.648,-4.433 8.306,-4.659C19.755,-8.594 27.234,-16.143 29.409,-28.295C30.276,-33.138 29.06,-37.541 25.286,-40.946" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,434.364,307.73)">
+                <path d="M0,21.161L-11.332,21.161C-10.213,19.501 -9.201,17.984 -8.173,16.478C-4.562,11.189 -0.941,5.907 2.66,0.611C3.042,0.049 3.393,-0.412 4.023,-0.108C2.678,7.005 1.342,14.067 0,21.161M81.716,3.14C79.158,2.176 76.422,1.674 73.755,1.008C71.833,0.529 69.861,0.231 67.968,-0.335C66.005,-0.922 65.611,-2.342 66.818,-3.997C67.843,-5.401 69.318,-6.156 70.952,-6.566C75.207,-7.632 79.288,-6.935 83.174,-5.076C84.842,-4.278 86.377,-3.2 88.043,-2.207C92.978,-8.115 97.943,-14.059 103.152,-20.296C100.444,-21.527 98.044,-22.822 95.507,-23.731C88.878,-26.108 82.011,-26.228 75.141,-25.209C66.704,-23.958 58.873,-20.985 51.793,-16.182C45.195,-11.706 39.984,-6.039 36.972,1.467C35.84,4.288 35.204,7.184 36.022,10.182C37.003,13.781 39.67,15.851 42.912,17.303C46.245,18.796 49.843,19.159 53.395,19.717C54.736,19.928 56.089,20.115 57.401,20.452C59.353,20.954 59.985,22.314 58.956,24.037C58.396,24.974 57.575,26.007 56.624,26.407C54.689,27.223 52.61,28.004 50.546,28.146C45.79,28.473 41.494,26.912 37.729,23.984C36.615,23.118 35.585,22.142 34.477,21.182C31.936,24.191 29.46,27.124 26.983,30.058C26.891,30.02 26.799,29.982 26.707,29.945C27.567,12.163 28.426,-5.619 29.29,-23.495C28.983,-23.548 28.843,-23.593 28.703,-23.593C18.756,-23.598 8.809,-23.606 -1.138,-23.577C-1.503,-23.576 -1.973,-23.306 -2.215,-23.013C-6.859,-17.394 -11.478,-11.755 -16.099,-6.116C-29.703,10.487 -43.307,27.092 -56.908,43.698C-57.566,44.501 -58.202,45.323 -58.954,46.269C-49.254,46.269 -39.787,46.279 -30.32,46.236C-29.92,46.235 -29.407,45.837 -29.141,45.479C-27.427,43.176 -25.745,40.849 -24.106,38.492C-23.678,37.875 -23.223,37.654 -22.48,37.657C-16.144,37.685 -9.807,37.672 -3.47,37.675C-3.12,37.675 -2.771,37.708 -2.331,37.729C-2.794,40.638 -3.236,43.41 -3.683,46.215L25.832,46.215C25.916,45.613 25.994,45.059 26.075,44.475C26.363,44.518 26.509,44.524 26.646,44.561C34.732,46.756 42.939,47.389 51.236,46.233C60.616,44.927 69.237,41.632 76.776,35.813C82.624,31.299 86.992,25.658 89.177,18.506C91.45,11.064 88.987,5.882 81.716,3.14" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,451.914,287.528)">
+                <path d="M0,61.563C0.316,61.936 8.952,64.726 9.089,64.763C17.175,66.958 25.382,67.59 33.68,66.435C43.059,65.129 51.68,61.834 59.219,56.015C65.067,51.501 69.435,45.86 71.62,38.707C73.893,31.266 71.43,26.083 64.159,23.342C61.601,22.377 58.865,21.875 56.198,21.21C54.276,20.73 52.304,20.433 50.411,19.866C48.448,19.279 48.054,17.859 49.261,16.205C50.286,14.8 51.761,14.045 53.395,13.636C57.65,12.569 61.732,13.266 65.617,15.126C67.285,15.924 68.82,17.002 70.486,17.994C75.421,12.087 80.386,6.143 85.595,-0.094C82.887,-1.325 80.487,-2.62 77.95,-3.53C71.321,-5.906 64.454,-6.027 57.584,-5.008C49.147,-3.756 41.316,-0.783 34.236,4.02C27.638,8.496 22.427,14.163 19.415,21.668C18.283,24.49 17.647,27.385 18.465,30.383C19.446,33.983 22.113,36.052 25.355,37.505C28.688,38.998 32.286,39.36 35.838,39.919C37.179,40.13 38.532,40.317 39.844,40.654C41.796,41.155 42.428,42.515 41.399,44.239C40.839,45.176 40.018,46.208 39.067,46.609C37.132,47.424 35.053,48.206 32.989,48.348C28.233,48.674 23.937,47.113 20.172,44.186C19.058,43.319 18.028,42.344 16.92,41.383C14.379,44.393 11.903,47.326 9.426,50.259" class="b"/>
+            </g>
+            <g transform="matrix(1,0,0,1,704.181,207.603)">
+                <path d="M0,-108.63C-0.931,-104.283 -1.877,-99.939 -2.789,-95.588C-4.653,-86.703 -6.502,-77.815 -8.351,-68.928C-11.374,-54.391 -14.39,-39.852 -17.414,-25.315C-19.188,-16.787 -20.98,-8.262 -22.736,0.27C-22.93,1.214 -23.307,1.6 -24.338,1.594C-31.366,1.549 -38.395,1.553 -45.423,1.591C-46.362,1.596 -46.783,1.246 -47.105,0.406C-54.994,-20.156 -62.906,-40.709 -70.813,-61.264C-72.172,-64.799 -73.529,-68.335 -74.89,-71.868C-75.006,-72.17 -75.147,-72.463 -75.274,-72.753C-75.713,-72.707 -75.63,-72.385 -75.676,-72.164C-79.329,-54.679 -82.981,-37.193 -86.625,-19.706C-88.005,-13.086 -89.385,-6.466 -90.719,0.164C-90.929,1.21 -91.331,1.608 -92.456,1.598C-98.785,1.542 -105.115,1.571 -111.444,1.57C-113.193,1.57 -113.198,1.567 -112.843,-0.134C-110.252,-12.546 -107.66,-24.959 -105.069,-37.371C-101.518,-54.389 -97.966,-71.406 -94.418,-88.425C-93.007,-95.189 -91.584,-101.951 -90.224,-108.725C-90.002,-109.831 -89.576,-110.238 -88.415,-110.229C-81.571,-110.179 -74.727,-110.181 -67.882,-110.228C-66.811,-110.235 -66.327,-109.846 -65.957,-108.881C-58.403,-89.214 -50.821,-69.558 -43.245,-49.9C-41.513,-45.406 -39.785,-40.91 -38.048,-36.418C-37.946,-36.154 -37.931,-35.829 -37.613,-35.658C-37.229,-35.875 -37.31,-36.297 -37.243,-36.62C-34.903,-47.808 -32.585,-59 -30.253,-70.189C-28.131,-80.372 -25.996,-90.552 -23.868,-100.733C-23.289,-103.503 -22.687,-106.268 -22.15,-109.046C-21.988,-109.886 -21.62,-110.217 -20.753,-110.214C-13.835,-110.182 -6.918,-110.183 0,-110.175L0,-108.63Z" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,113.733,212.226)">
+                <path d="M0,-117.226C3.413,-116.681 6.814,-116.099 10.08,-114.905C22.306,-110.436 29.615,-101.843 31.818,-88.993C32.435,-85.389 32.432,-81.753 32.106,-78.11C32.033,-77.293 31.702,-77.037 30.937,-77.039C24.093,-77.051 17.249,-77.062 10.405,-77.028C9.279,-77.023 9.217,-77.599 9.198,-78.483C9.05,-85.404 6.034,-90.694 0.004,-94.141C-3.685,-96.25 -7.736,-96.801 -11.937,-96.544C-15.947,-96.3 -19.798,-95.454 -23.419,-93.681C-29.966,-90.475 -34.889,-85.519 -38.649,-79.369C-43.438,-71.534 -46.199,-62.977 -47.453,-53.914C-48.193,-48.568 -48.371,-43.223 -47.16,-37.914C-46.229,-33.834 -44.608,-30.094 -41.634,-27.042C-38.029,-23.344 -33.52,-21.674 -28.485,-21.313C-22.958,-20.916 -17.622,-21.639 -12.684,-24.388C-8.269,-26.846 -4.93,-30.424 -2.081,-34.504C0.207,-37.781 1.92,-41.361 3.213,-45.135C3.487,-45.934 3.897,-46.225 4.727,-46.222C11.497,-46.197 18.268,-46.209 25.038,-46.202C26.352,-46.2 26.444,-46.084 26.08,-44.905C22.429,-33.055 16.321,-22.707 6.996,-14.44C-2.021,-6.446 -12.555,-1.736 -24.611,-0.641C-31.667,0 -38.658,-0.36 -45.446,-2.591C-55.692,-5.96 -63.228,-12.453 -67.756,-22.286C-70.308,-27.83 -71.529,-33.705 -71.847,-39.789C-72.512,-52.507 -69.744,-64.553 -64.641,-76.109C-60.449,-85.605 -54.668,-94.035 -46.978,-101.058C-37.198,-109.989 -25.83,-115.59 -12.561,-117.071C-12.346,-117.095 -12.136,-117.173 -11.924,-117.226L0,-117.226Z" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,442.962,212.22)">
+                <path d="M0,-117.22C3.314,-116.746 6.609,-116.183 9.779,-115.061C22.529,-110.548 30.024,-101.663 32.081,-88.262C32.597,-84.899 32.564,-81.525 32.293,-78.142C32.231,-77.359 31.91,-76.996 31.128,-77.04C30.908,-77.052 30.686,-77.037 30.465,-77.037C23.951,-77.036 17.438,-77.035 10.924,-77.037C9.335,-77.038 9.257,-77.072 9.294,-78.619C9.516,-87.658 2.305,-95.767 -7.752,-96.471C-19.209,-97.272 -28.169,-92.601 -35.271,-83.915C-40.276,-77.794 -43.275,-70.669 -45.401,-63.138C-47.109,-57.09 -48.046,-50.926 -47.851,-44.628C-47.712,-40.099 -46.917,-35.685 -44.772,-31.645C-41.765,-25.979 -37.06,-22.564 -30.68,-21.619C-22.491,-20.406 -14.889,-21.736 -8.403,-27.227C-3.923,-31.02 -0.631,-35.735 1.762,-41.079C2.362,-42.42 2.903,-43.792 3.394,-45.176C3.655,-45.911 4.041,-46.215 4.838,-46.212C11.683,-46.188 18.528,-46.185 25.373,-46.211C26.368,-46.215 26.567,-45.915 26.271,-44.976C21.775,-30.695 14.028,-18.698 1.567,-10.074C-6.205,-4.695 -14.829,-1.508 -24.267,-0.643C-31.289,0 -38.261,-0.303 -45.01,-2.489C-57.288,-6.466 -65.419,-14.677 -69.392,-26.948C-71.608,-33.79 -72.165,-40.827 -71.639,-47.976C-70.777,-59.698 -67.533,-70.736 -62.035,-81.102C-55.858,-92.748 -47.406,-102.327 -36.004,-109.122C-28.702,-113.473 -20.822,-116.185 -12.341,-117.07C-12.125,-117.093 -11.916,-117.169 -11.703,-117.22L0,-117.22Z" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,328.745,134.24)">
+                <path d="M0,37.755C0.479,37.419 0.417,36.979 0.495,36.606C5.429,12.928 10.345,-10.753 15.305,-34.425C15.888,-37.206 15.307,-36.827 18.303,-36.836C24.375,-36.854 30.448,-36.844 36.52,-36.838C37.876,-36.837 37.933,-36.747 37.666,-35.461C34.335,-19.446 31.011,-3.431 27.675,12.583C24.946,25.681 22.201,38.777 19.466,51.874C17.948,59.142 16.419,66.408 14.937,73.684C14.748,74.61 14.395,74.959 13.417,74.954C6.388,74.916 -0.642,74.914 -7.671,74.956C-8.657,74.961 -9.086,74.592 -9.423,73.712C-14.073,61.554 -18.758,49.409 -23.431,37.26C-28.078,25.18 -32.721,13.098 -37.368,1.018C-37.432,0.852 -37.528,0.699 -37.757,0.248C-38.146,2.079 -38.482,3.634 -38.806,5.191C-41.911,20.089 -45.012,34.987 -48.117,49.885C-49.774,57.837 -51.448,65.787 -53.082,73.744C-53.262,74.621 -53.618,74.956 -54.542,74.951C-61.056,74.917 -67.57,74.935 -74.084,74.932C-75.417,74.931 -75.485,74.842 -75.216,73.555C-72.631,61.177 -70.041,48.801 -67.463,36.422C-62.546,12.816 -57.651,-10.794 -52.706,-34.394C-52.121,-37.188 -52.733,-36.828 -49.735,-36.836C-43.221,-36.853 -36.707,-36.82 -30.194,-36.863C-29.138,-36.869 -28.644,-36.509 -28.265,-35.523C-20.527,-15.373 -12.754,4.763 -4.988,24.902C-3.493,28.779 -2.005,32.658 -0.51,36.535C-0.356,36.935 -0.18,37.326 0,37.755" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,361.177,242.337)">
+                <path d="M0,9.208C-105.907,9.208 -211.815,9.209 -317.722,9.205C-319.964,9.205 -319.893,9.495 -319.891,7.083C-319.89,5.06 -319.868,3.037 -319.899,1.015C-319.913,0.173 -319.609,-0.207 -318.74,-0.161C-317.933,-0.119 -317.121,-0.155 -316.312,-0.155L317.586,-0.155C320.119,-0.155 319.853,-0.287 319.861,2.096C319.867,4.082 319.836,6.069 319.873,8.054C319.888,8.904 319.582,9.28 318.715,9.214C318.166,9.172 317.611,9.208 317.059,9.208L0,9.208" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,513.111,212.072)">
+                <path d="M0,-114.673C3.459,-114.673 6.918,-114.677 10.378,-114.672C11.713,-114.67 11.78,-114.577 11.51,-113.283C8.656,-99.61 5.795,-85.939 2.951,-72.263C0.931,-62.547 -1.115,-52.836 -3.046,-43.103C-3.682,-39.901 -4.079,-36.645 -3.68,-33.349C-2.938,-27.219 0.662,-23.08 6.67,-21.81C12.518,-20.575 18.37,-20.81 24.159,-22.299C29.943,-23.787 33.948,-27.436 36.734,-32.61C39.387,-37.539 40.612,-42.902 41.736,-48.311C45.597,-66.881 49.477,-85.446 53.347,-104.013C54,-107.144 54.662,-110.273 55.267,-113.412C55.444,-114.327 55.819,-114.698 56.799,-114.693C63.791,-114.656 70.783,-114.675 77.775,-114.671C79.12,-114.67 79.176,-114.599 78.902,-113.283C77.299,-105.582 75.688,-97.883 74.086,-90.181C71.046,-75.571 68.006,-60.961 64.975,-46.349C63.268,-38.121 60.715,-30.215 56.172,-23.059C50.64,-14.344 42.935,-8.278 33.415,-4.436C27.773,-2.159 21.896,-0.916 15.837,-0.468C9.165,0.025 2.525,-0.123 -4.027,-1.593C-11.407,-3.248 -17.902,-6.448 -22.579,-12.647C-25.564,-16.605 -27.003,-21.159 -27.579,-26.022C-28.425,-33.166 -27.404,-40.165 -25.942,-47.133C-23.466,-58.932 -21.01,-70.735 -18.549,-82.537C-16.395,-92.863 -14.237,-103.189 -12.109,-113.52C-11.922,-114.431 -11.485,-114.698 -10.598,-114.689C-7.066,-114.65 -3.533,-114.673 0,-114.673" class="a"/>
+            </g>
+            <g transform="matrix(1,0,0,1,207.594,181.187)">
+                <path d="M0,-55.789C-0.081,-55.796 -0.162,-55.802 -0.243,-55.809C-0.352,-55.624 -0.467,-55.442 -0.57,-55.254C-5.621,-46.032 -10.67,-36.811 -15.721,-27.589C-17.751,-23.881 -19.785,-20.175 -21.814,-16.467C-22.114,-15.919 -22.477,-15.36 -21.354,-15.361C-12.967,-15.371 -4.58,-15.371 3.808,-15.357C4.602,-15.356 4.843,-15.686 4.751,-16.437C4.135,-21.468 3.533,-26.501 2.931,-31.534C2.216,-37.514 1.508,-43.496 0.79,-49.477C0.537,-51.582 0.264,-53.685 0,-55.789M22.208,27.985C18.565,27.985 14.921,27.955 11.279,28.006C10.322,28.019 9.991,27.651 9.892,26.762C9.078,19.459 8.236,12.159 7.407,4.858C7.221,3.226 7.229,3.222 5.617,3.222C-6.601,3.221 -18.818,3.236 -31.035,3.197C-32.158,3.193 -32.733,3.585 -33.254,4.554C-37.313,12.1 -41.434,19.613 -45.518,27.145C-45.835,27.729 -46.215,27.997 -46.9,27.996C-54.186,27.978 -61.472,27.989 -68.758,27.98C-69.79,27.979 -69.847,27.842 -69.248,26.79C-65.865,20.846 -62.474,14.905 -59.085,8.964C-51.359,-4.58 -43.634,-18.125 -35.905,-31.667C-27.865,-45.752 -19.819,-59.833 -11.777,-73.916C-10.099,-76.854 -8.404,-79.783 -6.764,-82.742C-6.361,-83.467 -5.905,-83.808 -5.042,-83.805C2.207,-83.776 9.456,-83.776 16.706,-83.803C17.663,-83.806 18.047,-83.494 18.191,-82.514C20.342,-67.9 22.538,-53.292 24.714,-38.681C26.786,-24.761 28.849,-10.839 30.914,3.081C32.079,10.932 33.24,18.784 34.406,26.634C34.584,27.835 34.479,27.98 33.247,27.983C29.568,27.991 25.888,27.985 22.208,27.985" class="a"/>
+            </g>
+        </g>
+    </g>
+</svg><span class="sep"></span><svg role="img" aria-label="GOLA, Gerencia de Operaciones Lado Aire" viewBox="280.5 490.3 3110.2 894.3" version="1.1" xmlns="http://www.w3.org/2000/svg" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(4.16667,0,0,4.16667,0,0)">
+        
+        <g transform="matrix(1,0,0,1,381.003,259.528)">
+            <g>
+                <path d="M0,-68.189C-14.122,-68.189 -26.162,-59.291 -30.832,-46.798C-30.91,-46.577 -30.993,-46.359 -31.067,-46.137C-31.081,-46.096 -31.094,-46.055 -31.109,-46.014C-31.799,-43.904 -32.293,-41.716 -32.562,-39.471C-32.77,-38.075 -32.885,-36.656 -32.907,-35.233C-32.902,-31.367 -32.226,-27.66 -30.996,-24.216C-30.766,-23.627 -30.523,-23.042 -30.249,-22.471C-23.359,-6.409 0.015,0.778 12.511,-13.095C18.136,-19.292 20.506,-29.23 16.331,-36.851C12.365,-44.437 2.263,-48.865 -5.758,-45.198C-14.125,-41.761 -17.92,-29.49 -11.006,-22.79C-8.84,-20.554 -5.771,-19.167 -2.536,-18.961C-5.773,-18.758 -9.128,-19.86 -11.72,-22.008C-20.432,-29.172 -16.765,-43.498 -7.285,-48.278C-0.88,-51.736 7.125,-50.731 13.206,-47.021C26.526,-38.924 26.937,-20.115 17.111,-9.039C15.826,-7.512 14.418,-6.17 12.913,-5.005C24.668,-10.025 32.909,-21.69 32.909,-35.28C32.909,-53.455 18.175,-68.189 0,-68.189M59.548,-35.28C59.548,-68.168 32.888,-94.829 0,-94.829C-32.888,-94.829 -59.548,-68.168 -59.548,-35.28C-59.548,-2.393 -32.888,24.268 0,24.268C32.888,24.268 59.548,-2.393 59.548,-35.28M99.247,-35.28C99.247,19.532 54.813,63.967 0,63.967C-54.813,63.967 -99.247,19.532 -99.247,-35.28C-99.247,-90.093 -54.813,-134.528 0,-134.528C54.813,-134.528 99.247,-90.093 99.247,-35.28M223.746,24.268L149.544,24.268C148.448,24.268 147.56,23.379 147.56,22.283L147.56,-132.543C147.56,-133.639 146.671,-134.528 145.575,-134.528L109.846,-134.528C108.749,-134.528 107.861,-133.639 107.861,-132.543L107.861,61.982C107.861,63.078 108.749,63.967 109.846,63.967L205.881,63.967C206.633,63.967 207.32,63.542 207.657,62.87L225.521,27.141C226.181,25.821 225.221,24.268 223.746,24.268M-109.53,-53.514C-109.705,-54.453 -110.538,-55.13 -111.494,-55.13L-205.123,-55.13C-206.219,-55.13 -207.108,-54.241 -207.108,-53.145L-207.108,-17.416C-207.108,-16.32 -206.219,-15.431 -205.123,-15.431L-153.859,-15.431C-152.434,-15.431 -151.489,-13.979 -152.029,-12.66C-160.919,9.023 -182.231,24.268 -207.108,24.268C-241.292,24.268 -268.743,-4.527 -266.531,-39.187C-264.581,-69.755 -238.998,-94.181 -208.374,-94.816C-186.491,-95.269 -167.242,-83.935 -156.536,-66.7C-155.967,-65.784 -154.793,-65.466 -153.859,-66.006L-122.911,-83.892C-121.949,-84.448 -121.615,-85.695 -122.19,-86.645C-139.574,-115.357 -171.109,-134.528 -207.108,-134.528C-263.22,-134.528 -308.436,-87.973 -306.281,-31.403C-304.323,20.027 -262.418,61.933 -210.987,63.893C-154.417,66.048 -107.861,20.832 -107.861,-35.28C-107.861,-41.518 -108.427,-47.606 -109.53,-53.514M422.166,65.057L332.279,-1.174L332.279,-9.696L343.09,-9.859L382.769,4.14L380.896,0.396L332.279,-34.113L332.279,-59.669C332.279,-60.822 331.958,-63.017 331.4,-65.4C331.247,-66.05 331.078,-66.713 330.892,-67.374C330.706,-68.035 330.504,-68.693 330.288,-69.33C329.21,-72.514 327.776,-75.187 326.203,-75.187C324.42,-75.187 322.816,-71.754 321.704,-68.033C321.639,-67.815 321.575,-67.595 321.513,-67.374C321.327,-66.713 321.158,-66.05 321.005,-65.4C320.447,-63.017 320.126,-60.822 320.126,-59.669L320.126,-34.113L271.51,0.396L269.636,4.14L309.316,-9.859L320.126,-9.696L320.126,-1.174L230.24,65.057C228.5,66.339 226.213,64.415 227.18,62.482L305.633,-94.426L324.363,-131.885C325.121,-133.401 327.284,-133.401 328.042,-131.885L346.772,-94.426L425.226,62.482C426.192,64.415 423.905,66.339 422.166,65.057" class="a"/>
+            </g>
+        </g>
+    </g>
+</svg></span>
+        <div><div class="app-name">Control de horas de capacitación</div><div class="app-sub">Reportes de Coursebox · Aeropuerto Internacional de Cancún</div></div>
+      </div>
+      <div class="top-actions"><span class="badge" id="sync">Cargando…</span><button class="btn secondary" id="btnXlsx" data-act="xlsx" hidden>Descargar Excel</button><button class="btn secondary" id="btnLock" data-act="lock" hidden>Cerrar sesión</button></div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Secciones"></nav>
+  </div>
+</header>
+
+<main class="in">
+  <section class="gate" id="gate" hidden>
+    <form class="card gate-card" id="gateForm">
+      <h2>Datos protegidos</h2>
+      <p class="lead">Escribe la contraseña que te compartió la Gerencia de Operaciones Lado Aire para ver las horas de capacitación.</p>
+      <label class="fld"><span class="label">Contraseña</span><input type="password" id="gatePw" autocomplete="current-password" required></label>
+      <label class="check"><input type="checkbox" id="gateRemember"> Recordar en este dispositivo</label>
+      <div class="row-actions"><button class="btn" type="submit" id="gateBtn">Entrar</button><span class="gate-err" id="gateErr" role="alert"></span></div>
+    </form>
+  </section>
+
+  <section class="filters" id="filters" hidden aria-label="Filtros">
+    <label class="fld f-q"><span class="label">Buscar persona</span><input type="search" id="f-q" placeholder="Nombre o correo"></label>
+    <label class="fld f-curso"><span class="label">Curso</span><select id="f-curso"></select></label>
+    <label class="fld"><span class="label">Área</span><select id="f-area"></select></label>
+    <label class="fld"><span class="label">Estado</span><select id="f-estado"><option value="">Todos</option><option value="T">Terminado</option><option value="P">En progreso</option><option value="S">Sin iniciar</option><option value="N">Sin terminar</option></select></label>
+    <label class="fld"><span class="label">Inscripción desde</span><input type="date" id="f-desde"></label>
+    <label class="fld"><span class="label">Inscripción hasta</span><input type="date" id="f-hasta"></label>
+    <div class="f-sum"><span id="f-sum"></span><button class="btn ghost s" data-act="clear-f" id="f-clear" hidden>Limpiar filtros</button></div>
+  </section>
+
+  <section class="pane" id="p-panorama" hidden>
+    <div class="hero" id="hero"></div>
+    <div class="card"><h2>Indicadores</h2><div class="kpis" id="kpis"></div></div>
+    <div class="grid2"><div class="card" id="dist"></div><div class="card" id="meses"></div></div>
+    <div class="card"><h2>Cumplimiento por área</h2><p class="lead">El área se toma de la columna “Enrolled by Channels” del reporte. Una persona puede pertenecer a más de un área.</p><div id="t-area" class="t-gap"></div></div>
+  </section>
+
+  <section class="pane" id="p-cursos" hidden>
+    <div id="curso-det"></div>
+    <div class="card">
+      <h2>Cursos</h2>
+      <p class="lead" id="cursos-lead">Inscripciones, avance y horas de cada curso. Elige un curso para ver sus módulos y exámenes.</p>
+      <div id="t-cursos" class="t-gap"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-personas" hidden>
+    <div class="card">
+      <h2>Personas</h2>
+      <p class="lead">Horas acumuladas y horas por completar de cada persona, sumando los cursos que coinciden con los filtros.</p>
+      <div id="t-personas" class="t-gap"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-detalle" hidden>
+    <div class="card">
+      <h2>Detalle de inscripciones</h2>
+      <p class="lead">Una fila por persona y curso. Horas de capacitación = duración del curso × avance de la persona.</p>
+      <div id="t-detalle" class="t-gap"></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-actualizar" hidden>
+    <div class="card">
+      <h2>Importar el reporte de Coursebox</h2>
+      <p class="lead">Descarga en Coursebox el reporte de todos los cursos (all-courses_report) y súbelo aquí. Reemplaza los datos de cada curso con lo que trae el reporte; las duraciones que ya capturaste se conservan.</p>
+      <label class="drop" id="drop">
+        <input type="file" id="file" accept=".csv,text/csv">
+        <strong>Elige el CSV o arrástralo aquí</strong>
+        <span>Un solo archivo con todos los cursos</span>
+      </label>
+      <div id="stage"></div>
+    </div>
+    <div class="card">
+      <h2>Publicar para tus compañeros</h2>
+      <p class="lead" id="pub-lead"></p>
+      <form class="pub" id="pubForm">
+        <label class="fld"><span class="label">Contraseña para ver los datos</span><input type="password" id="pubPw" autocomplete="new-password" minlength="10" required></label>
+        <label class="fld"><span class="label">Repite la contraseña</span><input type="password" id="pubPw2" autocomplete="new-password" minlength="10" required></label>
+        <button class="btn" type="submit" id="pubBtn">Generar archivo para publicar</button>
+      </form>
+      <p class="note">Mínimo 10 caracteres. Los datos se cifran en tu navegador con AES-256; sin la contraseña el archivo publicado no se puede leer. Si la cambias, avisa a tus compañeros.</p>
+      <div class="formula" id="pub-steps"></div>
+    </div>
+    <div class="card flat">
+      <h3>Borrador en este navegador</h3>
+      <p class="lead" id="draft-lead"></p>
+      <div class="row-actions"><button class="btn danger" data-act="rm-draft" data-confirm="¿Descartar?">Descartar borrador</button><button class="btn ghost" data-act="admin-off">Salir del modo administrador</button></div>
+    </div>
+  </section>
+
+  <section class="pane" id="p-vacio" hidden>
+    <div class="card"><div class="empty"><h3 id="vacio-t">Todavía no hay datos publicados</h3><p id="vacio-p">Cuando la Gerencia publique el reporte, aquí aparecerán las horas de capacitación.</p></div></div>
+  </section>
+</main>
+<footer class="in foot"><span id="foot-src"></span><a href="#actualizar" id="adminLink">Actualizar datos</a></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf=new Intl.NumberFormat('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fH=n=>nf.format(n);
+const fP=p=>(p*100).toLocaleString('es-MX',{maximumFractionDigits:1})+'%';
+const fN=n=>n.toLocaleString('es-MX');
+const d1=n=>n.toLocaleString('es-MX',{maximumFractionDigits:1});
+const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const col=new Intl.Collator('es',{sensitivity:'base',numeric:true});
+const TABS=[['panorama','Panorama'],['cursos','Cursos'],['personas','Personas'],['detalle','Detalle'],['actualizar','Actualizar']];
+const EST={T:'Terminado',P:'En progreso',S:'Sin iniciar'};
+const DATA_URL='datos.enc.json',LS_DRAFT='asur-horas-v2-borrador',LS_ADMIN='asur-horas-v2-admin',PW_KEY='asur-horas-v2-pw',REPO='https://github.com/smayovs/horas-capacitacion-asur';
+
+/* ---------- estado ---------- */
+let data=null,       // {generado,reporte,cursos:[{id,nombre,duracion,metodo,minimo,modulos,quizzes,filas}]}
+    pub=null,        // archivo cifrado publicado (o null)
+    pubData=null,    // datos publicados ya descifrados
+    pw='',           // contraseña con la que se descifró
+    admin=false, locked=false, tab='panorama', stage=null;
+const F={q:'',curso:'',area:'',estado:'',desde:'',hasta:''};
+const sorts={cursos:{k:'curso',d:'asc'},personas:{k:'horas',d:'desc'},detalle:{k:'ins',d:'desc'},area:{k:'tasa',d:'asc'}};
+const lim={personas:200,detalle:200};
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v);return true}catch(e){return false}},del:k=>{try{localStorage.removeItem(k)}catch(e){}}};
+const sess={get:k=>{try{return sessionStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}},del:k=>{try{sessionStorage.removeItem(k)}catch(e){}}};
+function loadDraft(){try{const o=JSON.parse(store.get(LS_DRAFT)||'null');return o&&Array.isArray(o.cursos)?o:null}catch(e){return null}}
+function saveDraft(){if(!store.set(LS_DRAFT,JSON.stringify(data)))toast('No se pudo guardar el borrador en este navegador.',true)}
+const isDraft=()=>!!data&&(!pubData||data.generado!==pubData.generado);
+
+/* ---------- cifrado (PBKDF2 + AES-GCM, con gzip) ---------- */
+const te=new TextEncoder(),td=new TextDecoder();
+const b64=u=>{let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s)};
+const unb64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+async function pipe(bytes,stream){return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(stream)).arrayBuffer())}
+async function keyFor(pass,salt,it){const base=await crypto.subtle.importKey('raw',te.encode(pass),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:it,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])}
+async function encrypt(obj,pass){const salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),it=310000;
+  const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},await keyFor(pass,salt,it),await pipe(te.encode(JSON.stringify(obj)),new CompressionStream('gzip'))));
+  return {v:1,alg:'AES-GCM-256',kdf:'PBKDF2-SHA256',it,salt:b64(salt),iv:b64(iv),generado:obj.generado,ct:b64(ct)}}
+async function decrypt(enc,pass){const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(enc.iv)},await keyFor(pass,unb64(enc.salt),enc.it),unb64(enc.ct));
+  return JSON.parse(td.decode(await pipe(new Uint8Array(pt),new DecompressionStream('gzip'))))}
+
+/* ---------- lectura del reporte de Coursebox ---------- */
+function hid(s){s=s.trim().toLowerCase();let a=2166136261,b=5381;for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);a^=c;a=Math.imul(a,16777619);b=Math.imul(b,33)^c}return 'c'+(a>>>0).toString(36)+(b>>>0).toString(36)+s.length.toString(36)}
+function parseCSV(t){if(t.charCodeAt(0)===0xFEFF)t=t.slice(1);const rows=[];let row=[],f='',q=false;
+  for(let i=0;i<t.length;i++){const c=t[i];
+    if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=c}
+    else if(c==='"')q=true;
+    else if(c===','){row.push(f);f=''}
+    else if(c==='\n'||c==='\r'){if(c==='\r'&&t[i+1]==='\n')i++;row.push(f);f='';rows.push(row);row=[]}
+    else f+=c}
+  if(f!==''||row.length){row.push(f);rows.push(row)}return rows}
+function pct(x){x=String(x||'').replace('%','').replace(/ /g,'').trim();const n=parseFloat(x.replace(',','.'));return isNaN(n)?null:n/100}
+function insISO(s){const m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s+(\d{1,2}):(\d{2}))?/.exec((s||'').trim());if(!m)return '';const p=n=>String(n).padStart(2,'0');return `${m[3]}-${p(m[2])}-${p(m[1])}T${p(m[4]||0)}:${m[5]||'00'}`}
+// Un curso: bloque que empieza en "Learning Name" y cuyo encabezado de columnas trae "Enrolled by Channels".
+function parseCurso(rows){
+  const meta={};let hi=-1;
+  for(let i=0;i<rows.length;i++){const k=(rows[i][0]||'').trim().toLowerCase(),c=rows[i].map(x=>x.trim());
+    if(c.includes('Enrolled by Channels')||(c.includes('Result')&&(c.includes('Completion')||c.includes('Grade')))){hi=i;break}
+    meta[k]=(rows[i][1]||'').trim()}
+  const nombre=meta['learning name'];if(!nombre)throw new Error('Un bloque del reporte no trae el nombre del curso.');
+  if(hi<0)throw new Error(`No se encontró el encabezado de columnas del curso “${nombre}”.`);
+  const h=rows[hi].map(c=>c.trim()),ix=(n,d)=>{const j=h.indexOf(n);return j<0?d:j};
+  const iCh=ix('Enrolled by Channels',4),iE=ix('Enrolled at',6),iR=ix('Result',7),iC=h.indexOf('Completion'),iG=h.indexOf('Grade'),iFin=h.indexOf('Course completion date');
+  const qStart=[];h.forEach((x,j)=>{if(/^Quiz \d+\s*:/i.test(x))qStart.push(j)});
+  const first=Math.max(iC,iG,iR)+1,modEnd=qStart.length?qStart[0]:(iFin>0?iFin:h.length);
+  const modIdx=[];for(let j=first;j<modEnd;j++)if(h[j])modIdx.push(j);
+  const quizzes=qStart.map((s,k)=>{const end=k+1<qStart.length?qStart[k+1]:(iFin>0?iFin:h.length),f=n=>{for(let j=s+1;j<end;j++)if(h[j]===n)return j;return -1};
+    const ans=[];let iRes=-1;for(let j=s+1;j<end;j++){if(/^Answer \d+/i.test(h[j]))ans.push(j);if(h[j]==='Result')iRes=j}
+    return {titulo:h[s].replace(/^Quiz (\d+)\s*:\s*/i,'Examen $1: '),s,t:f('Attempts'),res:iRes,ans}});
+  const cm=v=>/^complete/i.test((v||'').trim())?'C':/^incomplete/i.test((v||'').trim())?'I':'-';
+  const ca=v=>{v=(v||'').trim().toLowerCase();return !v?'-':v==='correct'?'C':'I'};
+  const filas=[],vistos=new Set();
+  for(let i=hi+1;i<rows.length;i++){const r=rows[i],n=(r[1]||'').trim(),e=(r[3]||'').trim();if(!n)continue;
+    const key=(e||n).toLowerCase();if(vistos.has(key))continue;vistos.add(key);
+    const res=(r[iR]||'').trim(),m=modIdx.map(j=>cm(r[j])).join('');
+    let p=iC>=0?pct(r[iC]):null;
+    if(p==null){const tot=m.replace(/-/g,'').length;p=tot?(m.split('C').length-1)/tot:0}   // cursos calificados por "Grade": avance por módulos
+    if(res==='completed')p=1;
+    const x={n,e,r:res,p:Math.max(0,Math.min(1,p)),i:insISO(r[iE])};
+    const ch=(r[iCh]||'').trim();if(ch)x.ch=ch;
+    if(iG>=0){const g=pct(r[iG]);if(g!=null)x.g=g}
+    if(modIdx.length)x.m=m;
+    if(iFin>=0){const d=insISO(r[iFin]);if(d)x.fin=d}
+    if(quizzes.length)x.z=quizzes.map(q=>{const t=parseInt(r[q.t],10),v=(r[q.res]||'').trim().toLowerCase();
+      return [t>0?pct(r[q.s]):null,isNaN(t)?0:t,/^no/.test(v)?0:/^s[ií]/.test(v)?1:null,q.ans.map(j=>ca(r[j])).join('')]});
+    filas.push(x)}
+  return {id:hid(nombre),nombre,metodo:meta['grading method']||'',minimo:meta['pass grade']||'',creador:meta['creator']||'',
+    modulos:modIdx.map(j=>h[j]),quizzes:quizzes.map(q=>({titulo:q.titulo,preguntas:q.ans.length})),filas}}
+function parseReporte(text){
+  const rows=parseCSV(text),starts=[];
+  rows.forEach((r,i)=>{if(/^learning name$/i.test((r[0]||'').trim()))starts.push(i)});
+  if(!starts.length)throw new Error('No parece un reporte de Coursebox: no se encontró ninguna fila “Learning Name”.');
+  return starts.map((s,k)=>parseCurso(rows.slice(s,k+1<starts.length?starts[k+1]:rows.length)))}
+
+/* ---------- derivados y filtros ---------- */
+const isDone=r=>r.r==='completed'||r.p>=0.999;
+const estado=r=>isDone(r)?'T':(r.r==='in_progress'||r.p>0)?'P':'S';
+const areasDe=ch=>ch?ch.split(',').map(s=>s.trim()).filter(Boolean):['Sin área'];
+const diasEntre=(a,b)=>a&&b?Math.max(0,(new Date(b)-new Date(a))/864e5):null;
+const mean=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:0;
+const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
+function pKey(iso){return iso.slice(0,7)}
+function pLab(k){const [y,m]=k.split('-');return MES[+m-1]+' '+y}
+function fDate(iso){if(!iso)return '';const [d,t]=iso.split('T');const [y,m,dd]=d.split('-');return `${dd}/${m}/${y}`}
+let ALL=[];
+function buildRows(){ALL=[];if(!data)return;data.cursos.forEach(c=>c.filas.forEach(r=>{const dur=+c.duracion||0;
+  ALL.push({cid:c.id,curso:c.nombre,nombre:r.n,email:r.e,ch:r.ch||'',areas:areasDe(r.ch),res:r.r,est:estado(r),pct:r.p,dur,horas:r.p*dur,falta:(1-r.p)*dur,ins:r.i||'',fin:r.fin||'',src:r})}))}
+function filtered(skip){const q=F.q.trim().toLowerCase();
+  return ALL.filter(r=>(skip==='curso'||!F.curso||r.cid===F.curso)&&(!F.area||r.areas.includes(F.area))
+    &&(!F.estado||(F.estado==='N'?r.est!=='T':r.est===F.estado))
+    &&(!F.desde||(r.ins&&r.ins.slice(0,10)>=F.desde))&&(!F.hasta||(r.ins&&r.ins.slice(0,10)<=F.hasta))
+    &&(!q||(r.nombre+' '+r.email).toLowerCase().includes(q)))}
+const anyF=()=>Object.values(F).some(Boolean);
+function porPersona(rows){const m=new Map();rows.forEach(r=>{const k=(r.email||r.nombre).toLowerCase();let x=m.get(k);
+  if(!x){x={nombre:r.nombre,email:r.email,areas:new Set(),n:0,ok:0,horas:0,falta:0,pcts:[]};m.set(k,x)}
+  r.areas.forEach(a=>a!=='Sin área'&&x.areas.add(a));x.n++;if(r.est==='T')x.ok++;x.horas+=r.horas;x.falta+=r.falta;x.pcts.push(r.pct)});
+  return [...m.values()].map(x=>({...x,area:[...x.areas].join(', '),avance:mean(x.pcts)}))}
+function porCurso(rows){const m=new Map();data.cursos.forEach(c=>m.set(c.id,{id:c.id,curso:c.nombre,dur:+c.duracion||0,metodo:c.metodo,n:0,ok:0,sin:0,horas:0,falta:0,pcts:[],dias:[]}));
+  rows.forEach(r=>{const x=m.get(r.cid);x.n++;if(r.est==='T')x.ok++;if(r.est==='S')x.sin++;x.horas+=r.horas;x.falta+=r.falta;x.pcts.push(r.pct);const d=diasEntre(r.ins,r.fin);if(r.est==='T'&&d!=null)x.dias.push(d)});
+  return [...m.values()].filter(x=>x.n||(!anyF())).map(x=>({...x,tasa:x.n?x.ok/x.n:0,avance:mean(x.pcts),dprom:x.dias.length?mean(x.dias):null}))}
+function porArea(rows){const m=new Map();rows.forEach(r=>r.areas.forEach(a=>{let x=m.get(a);if(!x){x={area:a,n:0,ok:0,horas:0,falta:0,pers:new Set()};m.set(a,x)}
+  x.n++;if(r.est==='T')x.ok++;x.horas+=r.horas;x.falta+=r.falta;x.pers.add((r.email||r.nombre).toLowerCase())}));
+  return [...m.values()].map(x=>({...x,personas:x.pers.size,tasa:x.n?x.ok/x.n:0}))}
+
+/* ---------- tablas ---------- */
+function cmp(a,b){return typeof a==='number'&&typeof b==='number'?a-b:col.compare(String(a),String(b))}
+function table(name,cols,rows,o={}){
+  const s=sorts[name];if(s){const c=cols.find(c=>c.k===s.k);if(c)rows=[...rows].sort((a,b)=>cmp(c.v(a),c.v(b))*(s.d==='asc'?1:-1))}
+  const total=rows.length;if(o.limit)rows=rows.slice(0,o.limit);
+  const th=cols.map(c=>{const on=s&&s.k===c.k;return `<th class="${c.n?'num':''}" aria-sort="${on?(s.d==='asc'?'ascending':'descending'):'none'}"><button class="sort" data-t="${name}" data-k="${c.k}">${esc(c.l)}<span class="arr">${on?(s.d==='asc'?'▲':'▼'):'↕'}</span></button></th>`}).join('');
+  const tr=rows.map(r=>`<tr>${cols.map(c=>`<td class="${(c.n?'num ':'')+(c.c||'')}">${c.h?c.h(r):esc(c.f?c.f(r):c.v(r))}</td>`).join('')}</tr>`).join('');
+  return `<div class="tw"><table><thead><tr>${th}</tr></thead><tbody>${tr}</tbody>${o.foot?`<tfoot>${o.foot}</tfoot>`:''}</table></div>`+
+    (o.limit&&total>o.limit?`<div class="more"><button class="btn secondary" data-act="more" data-t="${name}">Mostrar más (${fN(total-o.limit)} restantes)</button></div>`:'')}
+const estBadge=e=>`<span class="badge ${e==='T'?'ok':e==='P'?'info':''}">${EST[e]}</span>`;
+const pctCell=p=>`<span class="pct"><i><b style="width:${Math.min(100,p*100)}%"></b></i>${fP(p)}</span>`;
+const hrs=n=>`<span class="hrs">${fH(n)}</span>`;
+const noMatch=()=>`<div class="empty"><h3>Ningún registro coincide con los filtros</h3><p>Prueba con otro curso, área o rango de fechas.</p><button class="btn" data-act="clear-f">Limpiar filtros</button></div>`;
+const kpi=(k,v,s)=>`<div class="kpi"><div class="k">${k}</div><div class="v">${v}</div><small>${s||''}</small></div>`;
+const hb=(l,frac,v,bad)=>`<div class="hb${bad?' bad':''}"><span class="l">${esc(l)}</span><span class="t"><b style="width:${Math.round(Math.max(0,Math.min(1,frac))*100)}%"></b></span><span class="v">${v}</span></div>`;
+
+/* ---------- vista ---------- */
+const visibleTabs=()=>TABS.filter(([id])=>id!=='actualizar'||admin);
+function render(){renderChrome();renderPane()}
+function renderChrome(){
+  const ready=!!data&&!locked;
+  $('#gate').hidden=!locked;
+  $('#tabs').hidden=locked;
+  $('#tabs').innerHTML=locked?'':visibleTabs().map(([id,l])=>`<a href="#${id}" ${id===tab?'aria-current="page"':''}>${l}</a>`).join('');
+  $('#filters').hidden=!ready||tab==='actualizar';
+  $('#btnXlsx').hidden=!ready||!window.XLSX;
+  $('#btnLock').hidden=!(pub&&pw);
+  const s=$('#sync');
+  if(locked){s.className='badge';s.textContent='Protegido'}
+  else if(!data){s.className='badge warn';s.textContent='Sin datos'}
+  else if(isDraft()){s.className='badge warn';s.textContent='Borrador sin publicar'}
+  else{s.className='badge ok';s.textContent='Datos al '+fDate(data.fecha||data.generado)}
+  $('#foot-src').textContent=data?`Fuente: ${data.reporte||'reporte de Coursebox'} · ${data.cursos.length} cursos · generado el ${fDate(data.generado)}`:'Control de horas de capacitación · GOLA';
+  $('#adminLink').hidden=admin;
+  if(ready)fillFilters();
+}
+function fillFilters(){
+  const cs=[...data.cursos].sort((a,b)=>col.compare(a.nombre,b.nombre));
+  const sc=$('#f-curso');sc.innerHTML='<option value="">Todos los cursos</option>'+cs.map(c=>`<option value="${c.id}">${esc(c.nombre)}</option>`).join('');
+  if(!cs.some(c=>c.id===F.curso))F.curso='';sc.value=F.curso;
+  const as=[...new Set(ALL.flatMap(r=>r.areas))].sort((a,b)=>a==='Sin área'?1:b==='Sin área'?-1:col.compare(a,b));
+  const sa=$('#f-area');sa.innerHTML='<option value="">Todas las áreas</option>'+as.map(a=>`<option>${esc(a)}</option>`).join('');
+  if(!as.includes(F.area))F.area='';sa.value=F.area;
+  $('#f-q').value=F.q;$('#f-estado').value=F.estado;$('#f-desde').value=F.desde;$('#f-hasta').value=F.hasta;
+}
+function renderSum(rows){const pers=new Set(rows.map(r=>(r.email||r.nombre).toLowerCase())).size;
+  $('#f-sum').textContent=`${fN(rows.length)} inscripciones · ${fN(pers)} personas · ${fH(sum(rows,r=>r.horas))} h`;
+  $('#f-clear').hidden=!anyF()}
+function renderPane(){
+  const showEmpty=!locked&&!data&&tab!=='actualizar';
+  TABS.forEach(([id])=>{$('#p-'+id).hidden=locked||showEmpty||id!==tab});
+  $('#p-vacio').hidden=!showEmpty;
+  if(showEmpty){$('#vacio-t').textContent=admin?'Importa el primer reporte':'Todavía no hay datos publicados';
+    $('#vacio-p').innerHTML=admin?'Ve a <a href="#actualizar">Actualizar</a> y sube el reporte de Coursebox.':'Cuando la Gerencia publique el reporte, aquí aparecerán las horas de capacitación.';return}
+  if(locked)return;
+  if(tab==='actualizar'){renderAdmin();return}
+  const rows=filtered();renderSum(rows);
+  if(tab==='panorama')renderPanorama(rows);
+  if(tab==='cursos')renderCursos(rows);
+  if(tab==='personas')renderPersonas(rows);
+  if(tab==='detalle')renderDetalle(rows);
+}
+
+function renderPanorama(rows){
+  const n=rows.length,pers=porPersona(rows),ok=rows.filter(r=>r.est==='T').length,horas=sum(rows,r=>r.horas),falta=sum(rows,r=>r.falta);
+  const ncur=new Set(rows.map(r=>r.cid)).size;
+  $('#hero').innerHTML=`<div><div class="k">Horas de capacitación acumuladas</div><div class="v">${fH(horas)}</div><div class="u">horas · duración de cada curso × avance de cada persona</div></div>
+   <div><div class="k">Personas</div><div class="v s">${fN(pers.length)}</div></div><div><div class="k">Cursos</div><div class="v s">${fN(ncur)}</div></div><div><div class="k">Inscripciones</div><div class="v s">${fN(n)}</div></div>`;
+  if(!n){$('#kpis').innerHTML=noMatch();$('#dist').innerHTML='';$('#meses').innerHTML='';$('#t-area').innerHTML='';return}
+  const ds=rows.filter(r=>r.est==='T').map(r=>diasEntre(r.ins,r.fin)).filter(x=>x!=null);
+  const venc=rows.filter(r=>r.est!=='T'&&r.ins&&(Date.now()-new Date(r.ins))/864e5>30).length;
+  const pend=pers.filter(p=>p.ok<p.n).length;
+  $('#kpis').innerHTML=kpi('Tasa de terminación',fP(ok/n),`${fN(ok)} de ${fN(n)} inscripciones al 100%`)+
+    kpi('Avance promedio',fP(mean(rows.map(r=>r.pct))),'de todas las inscripciones')+
+    kpi('Horas por completar',fH(falta),'lo que falta para que todos terminen')+
+    kpi('Días para terminar',ds.length?d1(mean(ds)):'—',ds.length?`promedio entre inscripción y término (${fN(ds.length)})`:'aún no hay terminaciones con fecha')+
+    kpi('Sin iniciar',fN(rows.filter(r=>r.est==='S').length),'inscripciones con 0% de avance')+
+    kpi('Pendientes de más de 30 días',fN(venc),`inscritas hace más de 30 días y sin terminar · ${fN(pend)} personas con algo pendiente`);
+  const bins=[['0% (sin avance)',r=>r.pct===0],['1% a 49%',r=>r.pct>0&&r.pct<.5],['50% a 99%',r=>r.pct>=.5&&r.est!=='T'],['100% (terminaron)',r=>r.est==='T']];
+  $('#dist').innerHTML='<h3>Distribución del avance</h3>'+bins.map(([l,f])=>{const c=rows.filter(f).length;return hb(l,c/n,`${fN(c)} · ${fP(c/n)}`)}).join('');
+  const meses={};rows.forEach(r=>{if(r.est==='T'&&r.fin){const k=pKey(r.fin);meses[k]=(meses[k]||0)+1}});const mk=Object.keys(meses).sort(),mmax=Math.max(1,...mk.map(k=>meses[k]));
+  $('#meses').innerHTML='<h3>Terminaciones por mes</h3>'+(mk.length?mk.map(k=>hb(pLab(k),meses[k]/mmax,fN(meses[k]))).join(''):'<p class="lead">Todavía no hay terminaciones con fecha.</p>');
+  const ac=[{k:'area',l:'Área',v:r=>r.area,c:'wrap'},{k:'personas',l:'Personas',n:1,v:r=>r.personas},{k:'n',l:'Inscripciones',n:1,v:r=>r.n},{k:'ok',l:'Terminadas',n:1,v:r=>r.ok},{k:'tasa',l:'Tasa de terminación',n:1,v:r=>r.tasa,h:r=>pctCell(r.tasa)},{k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas)},{k:'falta',l:'Por completar',n:1,v:r=>r.falta,f:r=>fH(r.falta)}];
+  $('#t-area').innerHTML=table('area',ac,porArea(rows));
+}
+
+function renderCursos(rows){
+  const cs=porCurso(filtered('curso'));
+  const cols=[{k:'curso',l:'Curso',v:r=>r.curso,c:'wrap',h:r=>`<button class="link${r.id===F.curso?' on':''}" data-act="pick-curso" data-cid="${r.id}">${esc(r.curso)}</button>`},
+    {k:'n',l:'Inscritos',n:1,v:r=>r.n,f:r=>fN(r.n)},{k:'ok',l:'Terminaron',n:1,v:r=>r.ok,f:r=>fN(r.ok)},{k:'tasa',l:'Tasa de terminación',n:1,v:r=>r.tasa,h:r=>pctCell(r.tasa)},
+    {k:'avance',l:'Avance promedio',n:1,v:r=>r.avance,h:r=>pctCell(r.avance)},{k:'dprom',l:'Días para terminar',n:1,v:r=>r.dprom==null?-1:r.dprom,f:r=>r.dprom==null?'—':d1(r.dprom)},
+    {k:'dur',l:'Duración (h)',n:1,v:r=>r.dur,h:r=>admin?`<input class="dur-in" type="number" min="0" step="0.25" inputmode="decimal" value="${r.dur||''}" placeholder="—" data-cid="${r.id}" aria-label="Duración en horas de ${esc(r.curso)}">`:(r.dur?fH(r.dur):'<span class="muted">Sin capturar</span>')},
+    {k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas)},{k:'falta',l:'Por completar',n:1,v:r=>r.falta,f:r=>fH(r.falta)}];
+  const sinDur=data.cursos.filter(c=>!(+c.duracion)).length;
+  $('#cursos-lead').textContent='Inscripciones, avance y horas de cada curso. Elige un curso para ver sus módulos y exámenes.'+(sinDur?` ${sinDur} ${sinDur===1?'curso no tiene':'cursos no tienen'} duración capturada y sus horas cuentan como cero.`:'')+(admin?' Puedes editar la duración aquí; recuerda publicar después.':'');
+  $('#t-cursos').innerHTML=cs.length?table('cursos',cols,cs,{foot:`<tr><td>Total</td><td class="num">${fN(sum(cs,r=>r.n))}</td><td class="num">${fN(sum(cs,r=>r.ok))}</td><td class="num">${fP(sum(cs,r=>r.n)?sum(cs,r=>r.ok)/sum(cs,r=>r.n):0)}</td><td></td><td></td><td></td><td class="num">${fH(sum(cs,r=>r.horas))}</td><td class="num">${fH(sum(cs,r=>r.falta))}</td></tr>`}):noMatch();
+  $('#curso-det').innerHTML=F.curso?cursoDetalle(data.cursos.find(c=>c.id===F.curso),rows):'';
+}
+function cursoDetalle(c,rows){
+  if(!c)return '';const rs=rows.map(r=>r.src),n=rs.length;
+  let d=`<div class="card det"><div class="det-head"><div><h2>${esc(c.nombre)}</h2><p class="lead">${esc([c.metodo&&`Evaluación: ${c.metodo==='Completion'?'por terminación':'por calificación'}`,c.minimo&&`mínimo aprobatorio ${c.minimo}`,c.creador&&`autor: ${c.creador.replace(/\s*-\s*ASUR$/,'')}`].filter(Boolean).join(' · '))}</p></div><button class="btn ghost s" data-act="pick-curso" data-cid="">Ver todos los cursos</button></div>`;
+  if(!n)return d+noMatch()+'</div>';
+  d+='<div class="grid2 det-grid">';
+  const vm=c.modulos.length?rs.filter(f=>f.m&&f.m.length===c.modulos.length&&/[CI]/.test(f.m)):[];
+  if(vm.length){const pcs=c.modulos.map((_,i)=>vm.filter(f=>f.m[i]==='C').length/vm.length),mn=Math.min(...pcs);
+    d+=`<div><h3>Módulos completados</h3><p class="note">De ${fN(vm.length)} personas con registro de módulos. En rojo, los que menos personas completan.</p>`+c.modulos.map((m,i)=>hb(m,pcs[i],`${fN(vm.filter(f=>f.m[i]==='C').length)}`,pcs[i]<1&&pcs[i]===mn&&pcs.some(x=>x>mn))).join('')+'</div>'}
+  d+='<div>';
+  if(c.quizzes.length){c.quizzes.forEach((q,k)=>{const tr=rs.filter(f=>f.z&&f.z[k]&&f.z[k][1]>0);
+    d+=`<h3 class="sub">${esc(q.titulo)}</h3>`;
+    if(!tr.length){d+='<p class="note">Nadie lo ha presentado todavía.</p>';return}
+    const ap=tr.filter(f=>f.z[k][2]===1).length,sc=tr.map(f=>f.z[k][0]).filter(x=>x!=null);
+    d+=`<div class="qline"><span><b>${fP(ap/tr.length)}</b> aprobó</span><span><b>${fN(tr.length)}</b> lo presentaron</span><span><b>${d1(mean(tr.map(f=>f.z[k][1])))}</b> intentos en promedio</span>${sc.length?`<span><b>${fP(mean(sc))}</b> calificación promedio</span>`:''}</div>`;
+    if(q.preguntas>1){const pf=[];for(let j=0;j<q.preguntas;j++){let bad=0,tot=0;tr.forEach(f=>{const a=f.z[k][3][j];if(a==='I'){bad++;tot++}else if(a==='C')tot++});if(tot)pf.push({j,bad,tot,r:bad/tot})}
+      const top=pf.filter(x=>x.bad).sort((a,b)=>b.r-a.r).slice(0,5);
+      d+=top.length?'<p class="note">Preguntas más falladas:</p>'+top.map(x=>hb('Pregunta '+(x.j+1),x.r,`${x.bad} de ${x.tot}`,x.r>=.3)).join(''):'<p class="note">Nadie ha fallado preguntas de este examen.</p>'}})}
+  else d+='<h3>Exámenes</h3><p class="note">Este curso no tiene exámenes.</p>';
+  return d+'</div></div></div>'}
+
+function renderPersonas(rows){
+  if(!rows.length){$('#t-personas').innerHTML=noMatch();return}
+  const ps=porPersona(rows);
+  const cols=[{k:'nombre',l:'Nombre',v:r=>r.nombre},{k:'email',l:'Correo',v:r=>r.email},{k:'area',l:'Área',v:r=>r.area,c:'wrap'},{k:'n',l:'Cursos',n:1,v:r=>r.n},{k:'ok',l:'Terminados',n:1,v:r=>r.ok},
+    {k:'avance',l:'Avance promedio',n:1,v:r=>r.avance,h:r=>pctCell(r.avance)},{k:'horas',l:'Horas acumuladas',n:1,v:r=>r.horas,h:r=>hrs(r.horas)},{k:'falta',l:'Por completar',n:1,v:r=>r.falta,f:r=>fH(r.falta)}];
+  $('#t-personas').innerHTML=`<p class="count">${fN(ps.length)} personas</p>`+table('personas',cols,ps,{limit:lim.personas,foot:`<tr><td colspan="6">Total (${fN(ps.length)} personas)</td><td class="num">${fH(sum(ps,r=>r.horas))}</td><td class="num">${fH(sum(ps,r=>r.falta))}</td></tr>`})}
+
+function renderDetalle(rows){
+  if(!rows.length){$('#t-detalle').innerHTML=noMatch();return}
+  const cols=[{k:'curso',l:'Curso',v:r=>r.curso,c:'wrap'},{k:'nombre',l:'Nombre',v:r=>r.nombre},{k:'email',l:'Correo',v:r=>r.email},{k:'ch',l:'Área',v:r=>r.ch,c:'wrap'},
+    {k:'est',l:'Estado',v:r=>r.est,h:r=>estBadge(r.est)},{k:'pct',l:'Avance',n:1,v:r=>r.pct,h:r=>pctCell(r.pct)},{k:'dur',l:'Duración (h)',n:1,v:r=>r.dur,f:r=>fH(r.dur)},
+    {k:'horas',l:'Horas',n:1,v:r=>r.horas,h:r=>hrs(r.horas)},{k:'ins',l:'Inscripción',v:r=>r.ins,f:r=>fDate(r.ins)},{k:'fin',l:'Término',v:r=>r.fin,f:r=>fDate(r.fin)}];
+  $('#t-detalle').innerHTML=`<p class="count">${fN(rows.length)} inscripciones</p>`+table('detalle',cols,rows,{limit:lim.detalle})}
+
+/* ---------- administrador ---------- */
+function renderAdmin(){
+  renderStage();
+  $('#pub-lead').textContent=!data?'Primero importa un reporte.':isDraft()?'Tienes cambios sin publicar. Genera el archivo cifrado y súbelo al sitio para que tus compañeros vean esta versión.':'Lo que ves ya está publicado. Vuelve aquí cuando importes un reporte nuevo o cambies duraciones.';
+  $('#pubBtn').disabled=!data;
+  if(pw&&!$('#pubPw').value){$('#pubPw').value=pw;$('#pubPw2').value=pw}
+  $('#pub-steps').innerHTML=`<b>Para publicar:</b> genera el archivo <code>datos.enc.json</code> (se descarga), abre <a href="${REPO}/upload/main" target="_blank" rel="noopener">la página de carga del repositorio</a>, arrástralo y pulsa “Commit changes”. En uno o dos minutos tus compañeros verán los datos nuevos.`;
+  const dr=loadDraft();$('#draft-lead').textContent=dr?`Hay un borrador guardado (${dr.cursos.length} cursos, ${fDate(dr.generado)}). Solo existe en este navegador hasta que lo publiques.`:'No hay borrador guardado en este navegador.';
+}
+function renderStage(){
+  const box=$('#stage');if(!stage){box.innerHTML='';return}
+  if(stage.error){box.innerHTML=`<div class="si err"><div><div class="nm">${esc(stage.archivo)}</div><div class="meta"><span class="badge bad">No se pudo leer</span>${esc(stage.error)}</div></div></div>`;return}
+  const cur=new Map((data?data.cursos:[]).map(c=>[c.id,c])),ids=new Set(stage.cursos.map(c=>c.id));
+  const faltan=data?data.cursos.filter(c=>!ids.has(c.id)):[];
+  box.innerHTML=`<p class="lead stage-lead">${esc(stage.archivo)} · ${stage.cursos.length} cursos · ${fN(sum(stage.cursos,c=>c.filas.length))} inscripciones. Captura la duración en horas de cada curso.</p><div class="stage">`+
+    stage.cursos.map((c,i)=>{const ex=cur.get(c.id);return `<div class="si"><div><div class="nm">${esc(c.nombre)}</div><div class="meta"><span>${fN(c.filas.length)} inscritos</span><span>${c.metodo==='Completion'?'por terminación':'por calificación'}</span><span class="badge ${ex?'':'ok'}">${ex?'Se actualiza':'Curso nuevo'}</span></div></div>
+      <label class="dur"><span class="label">Duración (h)</span><input type="number" min="0" step="0.25" inputmode="decimal" data-i="${i}" value="${c.duracion??''}" placeholder="ej. 2"></label></div>`}).join('')+'</div>'+
+    (faltan.length?`<label class="check drop-miss"><input type="checkbox" id="rmMissing"> Quitar ${faltan.length} ${faltan.length===1?'curso que ya no viene':'cursos que ya no vienen'} en el reporte: ${esc(faltan.map(c=>c.nombre).join(' · '))}</label>`:'')+
+    `<div class="row-actions"><button class="btn" data-act="apply" id="btnApply">Aplicar reporte</button><button class="btn ghost" data-act="clear-stage">Cancelar</button><span class="lead" id="stageNote" style="margin:0"></span></div>`;
+  upStage()}
+function upStage(){const b=$('#btnApply');if(!b)return;const miss=stage.cursos.filter(c=>c.duracion===''||c.duracion==null||!isFinite(c.duracion)).length;
+  $('#stageNote').textContent=miss?`${miss} ${miss===1?'curso':'cursos'} sin duración: sus horas contarán como cero hasta que la captures.`:''}
+async function addFile(f){
+  if(!f)return;
+  try{const cs=parseReporte(await f.text()),cur=new Map((data?data.cursos:[]).map(c=>[c.id,c]));
+    cs.forEach(c=>{const ex=cur.get(c.id);c.duracion=ex&&ex.duracion!==''?ex.duracion:''});
+    stage={archivo:f.name,cursos:cs}}
+  catch(e){stage={archivo:f.name,error:e.message}}
+  renderStage()}
+function applyStage(){
+  const keep=data&&!($('#rmMissing')&&$('#rmMissing').checked)?data.cursos.filter(c=>!stage.cursos.some(s=>s.id===c.id)):[];
+  const m=/(\d{4}-\d{2}-\d{2})/.exec(stage.archivo);
+  data={generado:new Date().toISOString(),fecha:m?m[1]:new Date().toISOString().slice(0,10),reporte:stage.archivo,
+    cursos:[...stage.cursos.map(c=>({...c,duracion:c.duracion===''||c.duracion==null?'':+c.duracion})),...keep]};
+  stage=null;saveDraft();buildRows();toast('Reporte aplicado. Revisa los datos y publícalos cuando estén listos.');render()}
+
+/* ---------- exportar ---------- */
+const stamp=()=>new Date().toISOString().slice(0,10);
+function saveFile(filename,blob){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000)}
+function doXlsx(){
+  const rows=filtered(),wb=XLSX.utils.book_new(),cname=id=>(data.cursos.find(c=>c.id===id)||{}).nombre||'';
+  const filtros=[['Filtro','Valor'],['Curso',F.curso?cname(F.curso):'Todos'],['Área',F.area||'Todas'],['Estado',F.estado?({T:'Terminado',P:'En progreso',S:'Sin iniciar',N:'Sin terminar'})[F.estado]:'Todos'],['Inscripción desde',F.desde||'—'],['Inscripción hasta',F.hasta||'—'],['Búsqueda',F.q||'—'],[],['Fuente',data.reporte||''],['Datos al',fDate(data.fecha||data.generado)],['Descargado',fDate(new Date().toISOString())]];
+  const sheets=[
+    ['Cursos',[['Curso','Inscritos','Terminaron','Tasa de terminación','Avance promedio','Días promedio para terminar','Duración (h)','Horas','Horas por completar'],...porCurso(filtered('curso')).filter(r=>!F.curso||r.id===F.curso).sort((a,b)=>cmp(a.curso,b.curso)).map(r=>[r.curso,r.n,r.ok,r.tasa,r.avance,r.dprom==null?'':+r.dprom.toFixed(1),r.dur,+r.horas.toFixed(4),+r.falta.toFixed(4)])],{3:'0.0%',4:'0.0%',7:'0.00',8:'0.00'}],
+    ['Personas',[['Nombre','Correo','Área','Cursos','Terminados','Avance promedio','Horas acumuladas','Horas por completar'],...porPersona(rows).sort((a,b)=>b.horas-a.horas).map(p=>[p.nombre,p.email,p.area,p.n,p.ok,p.avance,+p.horas.toFixed(4),+p.falta.toFixed(4)])],{5:'0.0%',6:'0.00',7:'0.00'}],
+    ['Detalle',[['Curso','Nombre','Correo','Área','Estado','Avance','Duración (h)','Horas','Inscripción','Término'],...[...rows].sort((a,b)=>cmp(a.curso,b.curso)||cmp(a.nombre,b.nombre)).map(r=>[r.curso,r.nombre,r.email,r.ch,EST[r.est],r.pct,r.dur,+r.horas.toFixed(4),fDate(r.ins),fDate(r.fin)])],{5:'0.0%',6:'0.00',7:'0.00'}],
+    ['Areas',[['Área','Personas','Inscripciones','Terminadas','Tasa de terminación','Horas','Horas por completar'],...porArea(rows).sort((a,b)=>cmp(a.area,b.area)).map(r=>[r.area,r.personas,r.n,r.ok,r.tasa,+r.horas.toFixed(4),+r.falta.toFixed(4)])],{4:'0.0%',5:'0.00',6:'0.00'}],
+    ['Filtros',filtros,{}]];
+  sheets.forEach(([sn,a,fmt])=>{const ws=XLSX.utils.aoa_to_sheet(a);
+    ws['!cols']=a[0].map((_,i)=>({wch:Math.min(60,Math.max(12,...a.slice(0,200).map(r=>String(r[i]==null?'':r[i]).length)))}));
+    for(let r=1;r<a.length;r++)Object.entries(fmt).forEach(([c,z])=>{const x=ws[XLSX.utils.encode_cell({r,c:+c})];if(x&&typeof x.v==='number')x.z=z});
+    XLSX.utils.book_append_sheet(wb,ws,sn)});
+  saveFile(`Horas_Capacitacion_${stamp()}.xlsx`,new Blob([XLSX.write(wb,{bookType:'xlsx',type:'array'})]))}
+
+function toast(t,bad){const el=$('#toast');el.textContent=t;el.className='toast show'+(bad?' bad':'');clearTimeout(toast.t);toast.t=setTimeout(()=>el.className='toast',4500)}
+
+/* ---------- eventos ---------- */
+document.addEventListener('click',async e=>{
+  const sb=e.target.closest('.sort[data-t]');if(sb){const t=sb.dataset.t,k=sb.dataset.k,s=sorts[t];sorts[t]=s&&s.k===k?{k,d:s.d==='asc'?'desc':'asc'}:{k,d:'asc'};renderPane();return}
+  const b=e.target.closest('[data-act]');if(!b)return;
+  if(b.dataset.confirm&&!b.classList.contains('armed')){const o=b.textContent;b.classList.add('armed');b.textContent=b.dataset.confirm+' Confirmar';setTimeout(()=>{if(b.isConnected){b.classList.remove('armed');b.textContent=o}},4000);return}
+  const a=b.dataset.act;
+  if(a==='more'){lim[b.dataset.t]+=300;renderPane()}
+  else if(a==='clear-f'){Object.keys(F).forEach(k=>F[k]='');fillFilters();renderPane()}
+  else if(a==='pick-curso'){F.curso=b.dataset.cid;$('#f-curso').value=F.curso;renderPane();if(F.curso)window.scrollTo({top:0,behavior:'smooth'})}
+  else if(a==='xlsx')doXlsx();
+  else if(a==='apply')applyStage();
+  else if(a==='clear-stage'){stage=null;renderStage()}
+  else if(a==='lock'){pw='';sess.del(PW_KEY);store.del(PW_KEY);data=null;pubData=null;locked=true;ALL=[];render()}
+  else if(a==='rm-draft'){store.del(LS_DRAFT);data=pubData?JSON.parse(JSON.stringify(pubData)):null;buildRows();toast('Borrador descartado.');render()}
+  else if(a==='admin-off'){admin=false;store.del(LS_ADMIN);if(pubData){data=JSON.parse(JSON.stringify(pubData));buildRows()}location.hash='panorama'}
+});
+const fmap={'f-q':'q','f-curso':'curso','f-area':'area','f-estado':'estado','f-desde':'desde','f-hasta':'hasta'};
+let qT;
+document.addEventListener('input',e=>{const t=e.target;
+  if(t.id==='f-q'){clearTimeout(qT);qT=setTimeout(()=>{F.q=t.value;lim.personas=lim.detalle=200;renderPane()},150)}
+  else if(t.matches('#stage input[data-i]')){stage.cursos[+t.dataset.i].duracion=t.value===''?'':parseFloat(t.value);upStage()}});
+document.addEventListener('change',e=>{const t=e.target;
+  if(t.id==='file'){const f=t.files[0];t.value='';addFile(f)}
+  else if(fmap[t.id]&&t.id!=='f-q'){F[fmap[t.id]]=t.value;lim.personas=lim.detalle=200;renderPane()}
+  else if(t.matches('input.dur-in')){const v=t.value===''?'':parseFloat(t.value),c=data.cursos.find(c=>c.id===t.dataset.cid);if(!c||(v!==''&&(!isFinite(v)||v<0))){renderPane();return}
+    c.duracion=v;data.generado=new Date().toISOString();saveDraft();buildRows();render();toast('Duración actualizada. Publica para que tus compañeros la vean.')}});
+const drop=$('#drop');
+['dragenter','dragover'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>{addFile([...e.dataTransfer.files].find(f=>/\.csv$/i.test(f.name)))});
+
+$('#gateForm').addEventListener('submit',async e=>{e.preventDefault();const p=$('#gatePw').value,btn=$('#gateBtn');btn.disabled=true;$('#gateErr').textContent='';btn.textContent='Abriendo…';
+  try{await unlock(p);if($('#gateRemember').checked)store.set(PW_KEY,p);else sess.set(PW_KEY,p);$('#gatePw').value=''}
+  catch(err){$('#gateErr').textContent='Contraseña incorrecta.'}
+  btn.disabled=false;btn.textContent='Entrar'});
+$('#pubForm').addEventListener('submit',async e=>{e.preventDefault();const p=$('#pubPw').value;
+  if(p!==$('#pubPw2').value){toast('Las contraseñas no coinciden.',true);return}
+  const btn=$('#pubBtn');btn.disabled=true;btn.textContent='Cifrando…';
+  try{const enc=await encrypt(data,p);
+    saveFile('datos.enc.json',new Blob([JSON.stringify(enc)],{type:'application/json'}));
+    toast('Archivo datos.enc.json descargado. Súbelo al repositorio para publicarlo.')}
+  catch(err){toast('No se pudo cifrar: '+err.message,true)}
+  btn.disabled=false;btn.textContent='Generar archivo para publicar'});
+
+async function unlock(p){pubData=await decrypt(pub,p);pw=p;locked=false;
+  const dr=admin?loadDraft():null;data=dr&&dr.generado>pubData.generado?dr:JSON.parse(JSON.stringify(pubData));
+  buildRows();render()}
+function route(){const h=location.hash.slice(1);if(h==='actualizar'&&!admin){admin=true;store.set(LS_ADMIN,'1')}
+  tab=visibleTabs().some(t=>t[0]===h)?h:'panorama';render()}
+window.addEventListener('hashchange',route);
+
+/* ---------- arranque ---------- */
+(async()=>{
+  admin=store.get(LS_ADMIN)==='1';
+  try{const r=await fetch(DATA_URL,{cache:'no-store'});if(r.ok){const j=await r.json();if(j&&j.ct)pub=j}}catch(e){}
+  if(pub){locked=true;const saved=sess.get(PW_KEY)||store.get(PW_KEY);
+    if(saved){try{await unlock(saved)}catch(e){store.del(PW_KEY);sess.del(PW_KEY)}}}
+  else{data=admin?loadDraft():null;buildRows()}
+  route();
+})();
+})();
+</script>
+</body></html>
